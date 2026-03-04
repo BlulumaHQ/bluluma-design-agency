@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { insights } from "@/lib/insights";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { insightImages } from "@/pages/Insights";
 
 const RevealSection = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => {
   const ref = useScrollReveal({ delay });
@@ -21,6 +22,12 @@ const InsightDetail = () => {
       </div>
     );
   }
+
+  const heroImage = insightImages[insight.slug];
+
+  // Pick 2-4 other insight images to scatter between sections
+  const allSlugs = Object.keys(insightImages).filter((s) => s !== insight.slug);
+  const inlineImages = allSlugs.slice(0, Math.min(4, insight.sections.length - 1));
 
   return (
     <div>
@@ -43,16 +50,22 @@ const InsightDetail = () => {
         </div>
       </section>
 
-      {/* Hero Image Placeholder */}
+      {/* Hero Image */}
       <section className="section-border">
         <div className="section-container">
-          <div className="aspect-[21/9] bg-secondary border border-border flex items-center justify-center">
-            <span className="text-muted-foreground text-xs opacity-40">Article Hero Image</span>
+          <div className="aspect-[21/9] border border-border overflow-hidden">
+            {heroImage ? (
+              <img src={heroImage} alt={insight.title} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full bg-secondary flex items-center justify-center">
+                <span className="text-muted-foreground text-xs opacity-40">Article Hero Image</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Content Sections */}
+      {/* Content Sections with inline images */}
       <section>
         <div className="section-container section-padding max-w-3xl">
           {insight.sections.map((section, i) => (
@@ -61,6 +74,17 @@ const InsightDetail = () => {
                 <h2 className="text-xl md:text-2xl font-semibold mb-4">{section.heading}</h2>
                 <p className="text-muted-foreground leading-relaxed">{section.body}</p>
               </div>
+              {/* Insert an inline image after some sections */}
+              {inlineImages[i] && i < insight.sections.length - 1 && (
+                <div className="mb-12 border border-border overflow-hidden">
+                  <img
+                    src={insightImages[inlineImages[i]]}
+                    alt="Article visual"
+                    className="w-full h-auto object-cover aspect-[16/9]"
+                    loading="lazy"
+                  />
+                </div>
+              )}
             </RevealSection>
           ))}
         </div>

@@ -1,14 +1,15 @@
 import { Link, useParams } from "react-router-dom";
+import { Heart, Briefcase, Building2, Sparkles, Palette, Wrench, ShoppingCart, GraduationCap } from "lucide-react";
 
 const industries = [
-  { slug: "healthcare-dental", name: "Healthcare & Dental", desc: "Websites and brand systems for healthcare providers, clinics, and dental practices." },
-  { slug: "professional-services", name: "Professional Services", desc: "Digital platforms for law firms, consultancies, and professional service providers." },
-  { slug: "real-estate-construction", name: "Real Estate & Construction", desc: "Websites and brand systems for developers, builders, and real estate firms." },
-  { slug: "lifestyle-businesses", name: "Lifestyle Businesses", desc: "Digital experiences for wellness, fitness, beauty, and lifestyle brands." },
-  { slug: "creative-luxury-brands", name: "Creative & Luxury Brands", desc: "High-end digital platforms for creative agencies and luxury brands." },
-  { slug: "home-services", name: "Home Services", desc: "Websites for contractors, landscapers, and home service providers." },
-  { slug: "retail-ecommerce", name: "Retail & Ecommerce", desc: "Online stores and ecommerce platforms designed for conversion." },
-  { slug: "education-training", name: "Education & Training", desc: "Digital platforms for educational institutions and training providers." },
+  { slug: "healthcare-dental", name: "Healthcare & Dental", desc: "Websites and brand systems for healthcare providers, clinics, and dental practices.", icon: Heart },
+  { slug: "professional-services", name: "Professional Services", desc: "Digital platforms for law firms, consultancies, and professional service providers.", icon: Briefcase },
+  { slug: "real-estate-construction", name: "Real Estate & Construction", desc: "Websites and brand systems for developers, builders, and real estate firms.", icon: Building2 },
+  { slug: "lifestyle-businesses", name: "Lifestyle Businesses", desc: "Digital experiences for wellness, fitness, beauty, and lifestyle brands.", icon: Sparkles },
+  { slug: "creative-luxury-brands", name: "Creative & Luxury Brands", desc: "High-end digital platforms for creative agencies and luxury brands.", icon: Palette },
+  { slug: "home-services", name: "Home Services", desc: "Websites for contractors, landscapers, and home service providers.", icon: Wrench },
+  { slug: "retail-ecommerce", name: "Retail & Ecommerce", desc: "Online stores and ecommerce platforms designed for conversion.", icon: ShoppingCart },
+  { slug: "education-training", name: "Education & Training", desc: "Digital platforms for educational institutions and training providers.", icon: GraduationCap },
 ];
 
 export const IndustriesList = () => (
@@ -24,17 +25,23 @@ export const IndustriesList = () => (
     <section>
       <div className="section-container section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
-          {industries.map((ind) => (
-            <Link
-              key={ind.slug}
-              to={`/industries/${ind.slug}`}
-              className="group bg-background p-8 hover:bg-secondary transition-colors"
-            >
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{ind.name}</h3>
-              <p className="text-sm text-muted-foreground">{ind.desc}</p>
-              <span className="text-sm font-medium text-primary mt-3 inline-block">Learn More →</span>
-            </Link>
-          ))}
+          {industries.map((ind) => {
+            const Icon = ind.icon;
+            return (
+              <Link
+                key={ind.slug}
+                to={`/industries/${ind.slug}`}
+                className="group bg-background p-8 hover:bg-secondary transition-colors flex gap-4 items-start"
+              >
+                <Icon size={24} strokeWidth={1.5} className="text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{ind.name}</h3>
+                  <p className="text-sm text-muted-foreground">{ind.desc}</p>
+                  <span className="text-sm font-medium text-primary mt-3 inline-block">Learn More →</span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import { Globe, Fingerprint, ShoppingBag, FileText, Bot, TrendingUp } from "lucide-react";
 
 const solutions = [
-  { title: "Web Platforms", desc: "Modern, scalable websites designed for performance and long-term growth." },
-  { title: "Brand Identity Systems", desc: "Strategic brand systems that create recognition and consistency across every touchpoint." },
-  { title: "Ecommerce Platforms", desc: "Online stores built to maximize product presentation and drive conversion." },
-  { title: "Marketing Collateral", desc: "Printed and digital marketing materials that extend brand identity into the real world." },
-  { title: "AI Business Automation", desc: "Intelligent workflows and automation tools that improve operational efficiency." },
-  { title: "Conversion Optimization", desc: "Data-informed strategies that improve website performance and lead generation." },
+  { title: "Web Platforms", desc: "Modern, scalable websites designed for performance and long-term growth.", icon: Globe },
+  { title: "Brand Identity Systems", desc: "Strategic brand systems that create recognition and consistency across every touchpoint.", icon: Fingerprint },
+  { title: "Ecommerce Platforms", desc: "Online stores built to maximize product presentation and drive conversion.", icon: ShoppingBag },
+  { title: "Marketing Collateral", desc: "Printed and digital marketing materials that extend brand identity into the real world.", icon: FileText },
+  { title: "AI Business Automation", desc: "Intelligent workflows and automation tools that improve operational efficiency.", icon: Bot },
+  { title: "Conversion Optimization", desc: "Data-informed strategies that improve website performance and lead generation.", icon: TrendingUp },
 ];
 
 const Solutions = () => (
@@ -22,12 +23,18 @@ const Solutions = () => (
     <section>
       <div className="section-container section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
-          {solutions.map((s) => (
-            <div key={s.title} className="bg-background p-8">
-              <h3 className="text-lg font-semibold mb-3">{s.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-            </div>
-          ))}
+          {solutions.map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.title} className="bg-background p-8 flex gap-4 items-start">
+                <Icon size={24} strokeWidth={1.5} className="text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div className="mt-16 text-center">
           <Link to="/contact" className="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-dark transition-colors">
