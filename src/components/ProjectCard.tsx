@@ -4,18 +4,26 @@ import type { Project } from "@/lib/projects";
 interface ProjectCardProps {
   project: Project;
   imageImport: string;
+  mode?: "live" | "internal";
 }
 
-const ProjectCard = ({ project, imageImport }: ProjectCardProps) => (
-  <Link to={`/work/${project.slug}`} className="group block">
-    <div className="card-border overflow-hidden">
-      <div className="aspect-[4/3] overflow-hidden">
+const ProjectCard = ({ project, imageImport, mode = "internal" }: ProjectCardProps) => {
+  const isLive = mode === "live" && project.liveUrl;
+
+  const cardContent = (
+    <div className="card-border overflow-hidden transition-all duration-300 hover:border-primary hover:-translate-y-1">
+      <div className="aspect-[4/3] overflow-hidden relative">
         <img
           src={imageImport}
           alt={project.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           loading="lazy"
         />
+        {isLive && (
+          <span className="absolute top-4 right-4 text-xs font-semibold tracking-wide bg-background/90 backdrop-blur-sm border border-border px-3 py-1">
+            LIVE ↗
+          </span>
+        )}
       </div>
       <div className="p-6">
         <h3 className="text-lg font-semibold mb-1">{project.name}</h3>
@@ -31,11 +39,25 @@ const ProjectCard = ({ project, imageImport }: ProjectCardProps) => (
           ))}
         </div>
         <span className="inline-block mt-4 text-sm font-medium text-primary">
-          View Project →
+          {isLive ? "Visit Site ↗" : "View Project →"}
         </span>
       </div>
     </div>
-  </Link>
-);
+  );
+
+  if (isLive) {
+    return (
+      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="group block">
+        {cardContent}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={`/work/${project.slug}`} className="group block">
+      {cardContent}
+    </Link>
+  );
+};
 
 export default ProjectCard;

@@ -7,6 +7,7 @@ export interface Project {
   image: string;
   featured?: boolean;
   caseStudy?: boolean;
+  liveUrl?: string;
 }
 
 export const projects: Project[] = [
@@ -19,6 +20,7 @@ export const projects: Project[] = [
     image: "/projects/friendly-dental.jpg",
     featured: true,
     caseStudy: true,
+    liveUrl: "https://friendlydental.ca",
   },
   {
     slug: "live-at-headwater",
@@ -29,6 +31,7 @@ export const projects: Project[] = [
     image: "/projects/live-at-headwater.jpg",
     featured: true,
     caseStudy: true,
+    liveUrl: "https://liveatheadwater.com",
   },
   {
     slug: "btn-real-estate",
@@ -39,6 +42,7 @@ export const projects: Project[] = [
     image: "/projects/btn-real-estate.jpg",
     featured: true,
     caseStudy: true,
+    liveUrl: "https://btnrealestate.com",
   },
   {
     slug: "nuera-nutra",
@@ -48,6 +52,7 @@ export const projects: Project[] = [
     description: "Modern ecommerce website designed for a nutrition brand.",
     image: "/projects/nuera-nutra.jpg",
     featured: true,
+    liveUrl: "https://nueranutra.com",
   },
   {
     slug: "vita-environmental",
@@ -56,6 +61,7 @@ export const projects: Project[] = [
     services: ["Website Platform"],
     description: "TBD",
     image: "/projects/vita-environmental.jpg",
+    liveUrl: "https://vitaenvironmental.ca",
   },
   {
     slug: "spa-alita",
@@ -64,8 +70,6 @@ export const projects: Project[] = [
     services: ["Website Platform"],
     description: "TBD",
     image: "/projects/spa-alita.jpg",
+    liveUrl: "https://spaalita.com",
   },
 ];
-
-// We need to copy images to public for direct reference
-// But since we generated them in src/assets, we'll import them in components
