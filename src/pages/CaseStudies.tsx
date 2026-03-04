@@ -21,10 +21,13 @@ const serviceKeyMap: Record<string, string> = {
 
 interface CaseStudyContent {
   overview: string[];
-  challenge: { intro: string; bullets: string[] };
-  approach: { heading: string; body: string }[];
+  overviewKeys?: string[];
+  challenge: { intro: string; introKey?: string; bullets: string[]; bulletKeys?: string[] };
+  approach: { heading: string; headingKey?: string; body: string; bodyKey?: string }[];
   deliverables: string[];
+  deliverableKeys?: string[];
   results: string[];
+  resultKeys?: string[];
 }
 
 const caseStudyContent: Record<string, CaseStudyContent> = {
@@ -34,8 +37,10 @@ const caseStudyContent: Record<string, CaseStudyContent> = {
       "Bluluma was engaged to develop a complete brand identity system and a new website platform that would position Friendly Dental as a leading modern dental practice — approachable, professional, and trustworthy.",
       "The project encompassed brand strategy, visual identity design, website architecture, content development, and marketing collateral — delivered as an integrated system designed to work across every patient touchpoint.",
     ],
+    overviewKeys: ["cs.fd.overview.1", "cs.fd.overview.2", "cs.fd.overview.3"],
     challenge: {
       intro: "Friendly Dental faced several challenges common to healthcare practices looking to grow and modernize their patient-facing presence:",
+      introKey: "cs.fd.challenge.intro",
       bullets: [
         "The existing website was outdated and did not reflect the clinic's modern facilities or patient experience.",
         "There was no consistent brand system — marketing materials, signage, and digital assets were visually disconnected.",
@@ -43,12 +48,13 @@ const caseStudyContent: Record<string, CaseStudyContent> = {
         "The website lacked clear calls-to-action and was not optimized for mobile devices.",
         "Competitors in the area had invested in modern digital experiences, creating a perception gap.",
       ],
+      bulletKeys: ["cs.fd.challenge.1", "cs.fd.challenge.2", "cs.fd.challenge.3", "cs.fd.challenge.4", "cs.fd.challenge.5"],
     },
     approach: [
-      { heading: "Brand Strategy & Positioning", body: "We began with a strategic audit of the competitive landscape and patient demographics. This informed a positioning strategy that emphasized approachability and clinical excellence — moving away from the clinical coldness typical of dental branding toward a warm, confident visual language." },
-      { heading: "Visual Identity System", body: "The brand identity was built around a clean, modern aesthetic with a carefully selected color palette that communicates trust and professionalism. Typography was chosen for clarity at all sizes, and a set of brand guidelines ensures consistency across all applications — from business cards to environmental signage." },
-      { heading: "Website Architecture & Design", body: "The website was structured to serve two primary audiences: new patients researching dental care options and existing patients looking to book appointments or access information. Clear navigation, prominent booking CTAs, and service-specific landing pages create an efficient user experience." },
-      { heading: "Content & Photography Direction", body: "Content was written to be informative without being clinical, addressing common patient concerns in accessible language. Photography direction focused on the real clinic environment and team, avoiding generic stock imagery that undermines credibility in healthcare." },
+      { heading: "Brand Strategy & Positioning", headingKey: "cs.fd.approach.1.heading", body: "We began with a strategic audit of the competitive landscape and patient demographics. This informed a positioning strategy that emphasized approachability and clinical excellence — moving away from the clinical coldness typical of dental branding toward a warm, confident visual language.", bodyKey: "cs.fd.approach.1.body" },
+      { heading: "Visual Identity System", headingKey: "cs.fd.approach.2.heading", body: "The brand identity was built around a clean, modern aesthetic with a carefully selected color palette that communicates trust and professionalism. Typography was chosen for clarity at all sizes, and a set of brand guidelines ensures consistency across all applications — from business cards to environmental signage.", bodyKey: "cs.fd.approach.2.body" },
+      { heading: "Website Architecture & Design", headingKey: "cs.fd.approach.3.heading", body: "The website was structured to serve two primary audiences: new patients researching dental care options and existing patients looking to book appointments or access information. Clear navigation, prominent booking CTAs, and service-specific landing pages create an efficient user experience.", bodyKey: "cs.fd.approach.3.body" },
+      { heading: "Content & Photography Direction", headingKey: "cs.fd.approach.4.heading", body: "Content was written to be informative without being clinical, addressing common patient concerns in accessible language. Photography direction focused on the real clinic environment and team, avoiding generic stock imagery that undermines credibility in healthcare.", bodyKey: "cs.fd.approach.4.body" },
     ],
     deliverables: [
       "Brand strategy and positioning document",
@@ -61,12 +67,14 @@ const caseStudyContent: Record<string, CaseStudyContent> = {
       "Business cards and letterhead",
       "Environmental signage concepts",
     ],
+    deliverableKeys: ["cs.fd.deliverable.1", "cs.fd.deliverable.2", "cs.fd.deliverable.3", "cs.fd.deliverable.4", "cs.fd.deliverable.5", "cs.fd.deliverable.6", "cs.fd.deliverable.7", "cs.fd.deliverable.8", "cs.fd.deliverable.9"],
     results: [
       "The new website and brand system launched successfully, providing Friendly Dental with a cohesive, professional presence across all touchpoints.",
       "Patient inquiries through the website increased significantly in the months following launch, with the online booking feature seeing strong adoption.",
       "The brand system provided the clinic with a scalable visual framework that maintains consistency as they expand their marketing efforts.",
       "Staff reported that patients frequently comment on the professionalism of the new website and materials, reinforcing the practice's positioning as a modern, quality-focused clinic.",
     ],
+    resultKeys: ["cs.fd.result.1", "cs.fd.result.2", "cs.fd.result.3", "cs.fd.result.4"],
   },
   "live-at-headwater": {
     overview: [
@@ -252,19 +260,23 @@ export const CaseStudyDetail = () => {
                 <h2 className="text-2xl font-bold mb-6">{t("casestudy.overview")}</h2>
                 <div className="space-y-4">
                   {content.overview.map((p, i) => (
-                    <p key={i} className="text-muted-foreground leading-relaxed">{p}</p>
+                    <p key={i} className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                      {content.overviewKeys?.[i] ? t(content.overviewKeys[i]) : p}
+                    </p>
                   ))}
                 </div>
               </div>
 
               <div>
                 <h2 className="text-2xl font-bold mb-6">{t("casestudy.challenge")}</h2>
-                <p className="text-muted-foreground leading-relaxed mb-4">{content.challenge.intro}</p>
+                <p className="text-muted-foreground leading-relaxed mb-4 whitespace-pre-line">
+                  {content.challenge.introKey ? t(content.challenge.introKey) : content.challenge.intro}
+                </p>
                 <ul className="space-y-3">
                   {content.challenge.bullets.map((b, i) => (
                     <li key={i} className="text-muted-foreground leading-relaxed flex gap-3">
                       <span className="text-primary mt-1 flex-shrink-0">—</span>
-                      <span>{b}</span>
+                      <span>{content.challenge.bulletKeys?.[i] ? t(content.challenge.bulletKeys[i]) : b}</span>
                     </li>
                   ))}
                 </ul>
@@ -275,8 +287,8 @@ export const CaseStudyDetail = () => {
                 <div className="space-y-8">
                   {content.approach.map((section, i) => (
                     <div key={i}>
-                      <h3 className="text-lg font-semibold mb-3">{section.heading}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{section.body}</p>
+                      <h3 className="text-lg font-semibold mb-3">{section.headingKey ? t(section.headingKey) : section.heading}</h3>
+                      <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{section.bodyKey ? t(section.bodyKey) : section.body}</p>
                     </div>
                   ))}
                 </div>
@@ -288,7 +300,7 @@ export const CaseStudyDetail = () => {
                   {content.deliverables.map((d, i) => (
                     <li key={i} className="text-muted-foreground flex gap-3">
                       <span className="text-primary flex-shrink-0">—</span>
-                      <span>{d}</span>
+                      <span>{content.deliverableKeys?.[i] ? t(content.deliverableKeys[i]) : d}</span>
                     </li>
                   ))}
                 </ul>
@@ -298,7 +310,9 @@ export const CaseStudyDetail = () => {
                 <h2 className="text-2xl font-bold mb-6">{t("casestudy.results")}</h2>
                 <div className="space-y-4">
                   {content.results.map((r, i) => (
-                    <p key={i} className="text-muted-foreground leading-relaxed">{r}</p>
+                    <p key={i} className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                      {content.resultKeys?.[i] ? t(content.resultKeys[i]) : r}
+                    </p>
                   ))}
                 </div>
               </div>

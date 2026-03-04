@@ -33,7 +33,7 @@ const Agency = () => {
               <div className="space-y-6 text-muted-foreground leading-relaxed flex flex-col justify-center">
                 <p>{t("agency.p1")}</p>
                 <p>{t("agency.p2")}</p>
-                {t("agency.p3") && <p>{t("agency.p3")}</p>}
+                {t("agency.p3") && <p className="whitespace-pre-line">{t("agency.p3")}</p>}
               </div>
             </div>
           </RevealDiv>
@@ -42,7 +42,7 @@ const Agency = () => {
             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
               {[
                 { labelKey: "agency.focus", valueKey: "agency.focus.value" },
-                { labelKey: "agency.location", value: "Vancouver, BC" },
+                { labelKey: "agency.location", valueKey: "agency.location.value" },
                 { labelKey: "agency.founded", value: "2024" },
               ].map((item) => (
                 <div key={item.labelKey} className="bg-background p-8">

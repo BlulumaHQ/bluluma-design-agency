@@ -66,37 +66,37 @@ const SharpQuote = () => (
 
 const testimonials = [
   {
-    quote: "Bluluma transformed our online presence completely. The new website and brand identity have brought us more patient inquiries than we ever expected.",
+    quoteKey: "testimonial.1.quote",
     name: "Michael Chen",
     company: "Friendly Dental Group",
     projectTypeKey: "testimonial.brand-website",
   },
   {
-    quote: "Working with Bluluma was seamless from start to finish. They understood our vision and delivered a platform that truly represents our development.",
+    quoteKey: "testimonial.2.quote",
     name: "Sarah Thompson",
     company: "Headwater Developments",
     projectTypeKey: "testimonial.brand-website",
   },
   {
-    quote: "The attention to detail and strategic thinking behind every design decision made all the difference. Our new site performs beyond expectations.",
+    quoteKey: "testimonial.3.quote",
     name: "Daniel Wong",
     company: "BTN Real Estate Advisory",
     projectTypeKey: "testimonial.website-platform",
   },
   {
-    quote: "Bluluma delivered a brand system and website that elevated our entire business. The clarity and professionalism speak for themselves.",
+    quoteKey: "testimonial.4.quote",
     name: "Jessica Lee",
     company: "NuEra Nutra",
     projectTypeKey: "testimonial.brand-website",
   },
   {
-    quote: "Their process was structured, transparent, and efficient. We launched on time with a website that immediately started generating leads.",
+    quoteKey: "testimonial.5.quote",
     name: "Ryan Patel",
     company: "Vita Environmental",
     projectTypeKey: "testimonial.website-platform",
   },
   {
-    quote: "From strategy to launch, Bluluma brought a level of craft and professionalism that set them apart from every other agency we've worked with.",
+    quoteKey: "testimonial.6.quote",
     name: "David Nguyen",
     company: "Pacific Interior Studio",
     projectTypeKey: "testimonial.brand-website",
@@ -140,8 +140,8 @@ const TestimonialsCarousel = () => {
               <div key={i} className="w-full flex-shrink-0 flex-grow-0" style={{ minWidth: "100%" }}>
                 <div className="border border-border p-8 relative" style={{ minHeight: 260 }}>
                   <SharpQuote />
-                  <blockquote className="text-foreground leading-relaxed mb-6 relative z-10 pt-16">
-                    "{testimonial.quote}"
+                  <blockquote className="text-foreground leading-relaxed mb-6 relative z-10 pt-16 whitespace-pre-line">
+                    "{t(testimonial.quoteKey)}"
                   </blockquote>
                   <div className="border-t border-border pt-4 flex items-center justify-between relative z-10">
                     <div>
@@ -172,8 +172,8 @@ const TestimonialsCarousel = () => {
                         style={{ minHeight: 280 }}
                       >
                         <SharpQuote />
-                        <blockquote className="text-foreground leading-relaxed mb-6 relative z-10 pt-16">
-                          "{testimonial.quote}"
+                        <blockquote className="text-foreground leading-relaxed mb-6 relative z-10 pt-16 whitespace-pre-line">
+                          "{t(testimonial.quoteKey)}"
                         </blockquote>
                         <div className="border-t border-border pt-4 flex items-center justify-between relative z-10">
                           <div>
