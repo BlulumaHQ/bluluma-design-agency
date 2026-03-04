@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLang } from "@/lib/i18n";
-import agencyImage from "@/assets/bluluma-logo-3d-sign.png";
+import agencyImage from "@/assets/bluluma-logo-3d-sign.jpg";
 
 const RevealDiv = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => {
   const ref = useScrollReveal<HTMLDivElement>({ delay });
