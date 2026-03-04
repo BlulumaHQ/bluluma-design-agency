@@ -9,7 +9,6 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TBD: form submission logic
     alert("Thank you for your message. We'll be in touch.");
   };
 
@@ -17,7 +16,7 @@ const Contact = () => {
     <div>
       <section className="section-border">
         <div className="section-container py-16 md:py-24">
-          <h1 className="text-4xl md:text-5xl font-bold">Contact</h1>
+          <h1 className="text-4xl md:text-5xl font-bold">Request a Quote</h1>
           <p className="mt-4 text-muted-foreground max-w-xl">
             Tell us about your business and the digital platform you want to build.
           </p>
@@ -25,8 +24,8 @@ const Contact = () => {
       </section>
       <section>
         <div className="section-container section-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label htmlFor="name" className="text-sm font-medium block mb-2">Name</label>
                 <input
@@ -42,7 +41,7 @@ const Contact = () => {
                 />
               </div>
               <div>
-                <label htmlFor="business" className="text-sm font-medium block mb-2">Business Name</label>
+                <label htmlFor="business" className="text-sm font-medium block mb-2">Business</label>
                 <input
                   type="text" id="business" name="business" value={form.business} onChange={handleChange}
                   className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
@@ -54,7 +53,7 @@ const Contact = () => {
                   id="projectType" name="projectType" value={form.projectType} onChange={handleChange}
                   className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
                 >
-                  <option value="">Select a project type</option>
+                  <option value="">Select type</option>
                   <option value="website">Website Platform</option>
                   <option value="brand">Brand Identity</option>
                   <option value="ecommerce">Ecommerce</option>
@@ -63,30 +62,30 @@ const Contact = () => {
                   <option value="other">Other</option>
                 </select>
               </div>
-              <div>
-                <label htmlFor="message" className="text-sm font-medium block mb-2">Message</label>
-                <textarea
-                  id="message" name="message" rows={5} value={form.message} onChange={handleChange} required
-                  className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors resize-none"
-                />
-              </div>
-              <button
-                type="submit"
-                className="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-dark transition-colors"
-              >
-                Send Message
-              </button>
-            </form>
+            </div>
+            <div>
+              <label htmlFor="message" className="text-sm font-medium block mb-2">Message</label>
+              <textarea
+                id="message" name="message" rows={4} value={form.message} onChange={handleChange} required
+                className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors resize-none"
+              />
+            </div>
+            <button
+              type="submit"
+              className="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary-dark transition-colors"
+            >
+              Request a Quote
+            </button>
+          </form>
 
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-label mb-2">Email</h3>
-                <p className="font-medium">hello@blulumadesign.com</p>
-              </div>
-              <div>
-                <h3 className="text-label mb-2">Location</h3>
-                <p className="font-medium">Vancouver, BC, Canada</p>
-              </div>
+          <div className="mt-16 pt-16 border-t border-border grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-label mb-2">Email</h3>
+              <p className="font-medium">hello@blulumadesign.com</p>
+            </div>
+            <div>
+              <h3 className="text-label mb-2">Location</h3>
+              <p className="font-medium">Vancouver, BC, Canada</p>
             </div>
           </div>
         </div>

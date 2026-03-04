@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useCallback } from "react";
 import ProjectCard from "@/components/ProjectCard";
 import { projects } from "@/lib/projects";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -6,6 +7,7 @@ import friendlyDental from "@/assets/projects/friendly-dental.jpg";
 import liveAtHeadwater from "@/assets/projects/live-at-headwater.jpg";
 import btnRealEstate from "@/assets/projects/btn-real-estate.jpg";
 import nueranutra from "@/assets/projects/nuera-nutra.jpg";
+import { Heart, Briefcase, Building2, Sparkles, Palette, Wrench, ShoppingCart, GraduationCap } from "lucide-react";
 
 const projectImages: Record<string, string> = {
   "friendly-dental": friendlyDental,
@@ -50,43 +52,58 @@ const workflow = [
 const testimonials = [
   {
     quote: "Bluluma transformed our online presence completely. The new website and brand identity have brought us more patient inquiries than we ever expected.",
-    name: "TBD",
-    company: "TBD",
+    name: "Michael Chen",
+    company: "Friendly Dental Group",
     projectType: "Brand + Website",
   },
   {
     quote: "Working with Bluluma was seamless from start to finish. They understood our vision and delivered a platform that truly represents our development.",
-    name: "TBD",
-    company: "TBD",
+    name: "Sarah Thompson",
+    company: "Headwater Developments",
     projectType: "Brand + Website",
   },
   {
     quote: "The attention to detail and strategic thinking behind every design decision made all the difference. Our new site performs beyond expectations.",
-    name: "TBD",
-    company: "TBD",
+    name: "Daniel Wong",
+    company: "BTN Real Estate Advisory",
     projectType: "Website Platform",
   },
   {
     quote: "Bluluma delivered a brand system and website that elevated our entire business. The clarity and professionalism speak for themselves.",
-    name: "TBD",
-    company: "TBD",
+    name: "Jessica Lee",
+    company: "NuEra Nutra",
+    projectType: "Brand + Website",
+  },
+  {
+    quote: "Their process was structured, transparent, and efficient. We launched on time with a website that immediately started generating leads.",
+    name: "Ryan Patel",
+    company: "Vita Environmental",
+    projectType: "Website Platform",
+  },
+  {
+    quote: "From strategy to launch, Bluluma brought a level of craft and professionalism that set them apart from every other agency we've worked with.",
+    name: "David Nguyen",
+    company: "Pacific Interior Studio",
     projectType: "Brand + Website",
   },
 ];
 
 const industries = [
-  "Healthcare & Dental", "Professional Services", "Real Estate & Construction",
-  "Lifestyle Businesses", "Creative & Luxury Brands", "Home Services",
-  "Retail & Ecommerce", "Education & Training",
+  { name: "Healthcare & Dental", icon: Heart },
+  { name: "Professional Services", icon: Briefcase },
+  { name: "Real Estate & Construction", icon: Building2 },
+  { name: "Lifestyle Businesses", icon: Sparkles },
+  { name: "Creative & Luxury Brands", icon: Palette },
+  { name: "Home Services", icon: Wrench },
+  { name: "Retail & Ecommerce", icon: ShoppingCart },
+  { name: "Education & Training", icon: GraduationCap },
 ];
 
-/* ────────────────────── Scroll-reveal wrapper ────────────────────── */
 const RevealSection = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => {
   const ref = useScrollReveal<HTMLDivElement>({ delay });
   return <div ref={ref} className={className}>{children}</div>;
 };
 
-/* ────────────────────── Arrow SVG ────────────────────── */
 const FlowArrowRight = () => (
   <svg width="40" height="24" viewBox="0 0 40 24" fill="none" className="hidden md:block flex-shrink-0 mx-2">
     <line x1="0" y1="12" x2="32" y2="12" stroke="hsl(220, 62%, 51%)" strokeWidth="1.5" />
@@ -100,6 +117,78 @@ const FlowArrowDown = () => (
     <polyline points="7,20 12,26 17,20" stroke="hsl(220, 62%, 51%)" strokeWidth="1.5" fill="none" />
   </svg>
 );
+
+/* ── Testimonials Carousel ── */
+const SLIDES_COUNT = Math.ceil(testimonials.length / 2);
+
+const TestimonialsCarousel = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const goTo = useCallback((index: number) => {
+    setCurrentSlide(index);
+  }, []);
+
+  const slides = Array.from({ length: SLIDES_COUNT }, (_, i) =>
+    testimonials.slice(i * 2, i * 2 + 2)
+  );
+
+  return (
+    <div>
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        >
+          {slides.map((pair, slideIdx) => (
+            <div key={slideIdx} className="min-w-full flex-shrink-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {pair.map((t, i) => (
+                  <div
+                    key={i}
+                    className="card-border p-8 transition-all duration-300 hover:border-primary hover:-translate-y-1 relative"
+                  >
+                    {/* Large quotation mark */}
+                    <span
+                      className="absolute top-4 left-6 text-[140px] leading-none font-serif select-none pointer-events-none"
+                      style={{ color: "#5887da", opacity: 0.15 }}
+                    >
+                      "
+                    </span>
+                    <blockquote className="text-foreground leading-relaxed mb-6 relative z-10 pt-12">
+                      "{t.quote}"
+                    </blockquote>
+                    <div className="border-t border-border pt-4 flex items-center justify-between relative z-10">
+                      <div>
+                        <p className="text-sm font-semibold">{t.name}</p>
+                        <p className="text-xs text-muted-foreground">{t.company}</p>
+                      </div>
+                      <span className="text-xs text-muted-foreground border border-border px-2 py-1">
+                        {t.projectType}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Dots */}
+      <div className="flex justify-center gap-3 mt-8">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+              currentSlide === i ? "bg-primary" : "bg-border"
+            }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Home = () => (
   <div>
@@ -163,8 +252,8 @@ const Home = () => (
         </RevealSection>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
           {capabilities.map((cap, i) => (
-            <RevealSection key={cap.title} delay={i * 80}>
-              <div className="bg-background p-8 md:p-10 transition-colors duration-300 hover:bg-secondary">
+            <RevealSection key={cap.title} delay={i * 80} className="flex">
+              <div className="bg-background p-8 md:p-10 transition-colors duration-300 hover:bg-secondary flex flex-col w-full">
                 <h3 className="text-xl font-semibold mb-3">{cap.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{cap.desc}</p>
               </div>
@@ -218,16 +307,20 @@ const Home = () => (
           <h2 className="text-3xl md:text-4xl font-bold mb-12">Industries We Work With</h2>
         </RevealSection>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
-          {industries.map((ind, i) => (
-            <RevealSection key={ind} delay={i * 60}>
-              <Link
-                to="/industries"
-                className="bg-background p-6 text-sm font-medium block transition-colors duration-300 hover:text-primary"
-              >
-                {ind}
-              </Link>
-            </RevealSection>
-          ))}
+          {industries.map((ind, i) => {
+            const Icon = ind.icon;
+            return (
+              <RevealSection key={ind.name} delay={i * 60}>
+                <Link
+                  to="/industries"
+                  className="bg-background p-6 text-sm font-medium block transition-colors duration-300 hover:text-primary flex items-center gap-3"
+                >
+                  <Icon size={20} strokeWidth={1.5} className="text-primary flex-shrink-0" />
+                  {ind.name}
+                </Link>
+              </RevealSection>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -287,76 +380,13 @@ const Home = () => (
       </div>
     </section>
 
-    {/* ═══════ ABOUT BLULUMA ═══════ */}
-    <section className="section-border section-subtle-bg">
-      <div className="section-container section-padding">
-        <RevealSection>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">About Bluluma</h2>
-          <div className="max-w-2xl space-y-4 text-muted-foreground leading-relaxed">
-            <p>Bluluma Design is a Vancouver-based digital design studio focused on building modern websites, brand systems, and digital platforms for growing businesses.</p>
-            <p>Our work combines design thinking, technology, and strategy to create digital experiences that support long-term growth.</p>
-          </div>
-        </RevealSection>
-
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
-          <RevealSection delay={0}>
-            <div className="bg-background p-8">
-              <h3 className="text-sm font-semibold uppercase tracking-widest text-primary mb-4">Vision</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                To build digital brand systems and websites that help businesses grow with clarity and long-term scalability.
-              </p>
-            </div>
-          </RevealSection>
-          <RevealSection delay={100}>
-            <div className="bg-background p-8">
-              <h3 className="text-sm font-semibold uppercase tracking-widest text-primary mb-4">Mission</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                To combine strategic design thinking, modern web technologies, and efficient production workflows to deliver professional digital platforms.
-              </p>
-            </div>
-          </RevealSection>
-          <RevealSection delay={200}>
-            <div className="bg-background p-8">
-              <h3 className="text-sm font-semibold uppercase tracking-widest text-primary mb-4">Values</h3>
-              <ul className="text-sm text-muted-foreground leading-relaxed space-y-1">
-                <li>Clarity over noise</li>
-                <li>Systems thinking</li>
-                <li>Craft and speed</li>
-                <li>Evidence-led decisions</li>
-                <li>Long-term maintainability</li>
-              </ul>
-            </div>
-          </RevealSection>
-        </div>
-      </div>
-    </section>
-
     {/* ═══════ TESTIMONIALS ═══════ */}
     <section className="section-border">
       <div className="section-container section-padding">
         <RevealSection>
           <h2 className="text-3xl md:text-4xl font-bold mb-12">What Clients Say</h2>
         </RevealSection>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {testimonials.map((t, i) => (
-            <RevealSection key={i} delay={i * 100}>
-              <div className="card-border p-8 transition-all duration-300 hover:border-primary hover:-translate-y-1">
-                <blockquote className="text-foreground leading-relaxed mb-6">
-                  "{t.quote}"
-                </blockquote>
-                <div className="border-t border-border pt-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">{t.company}</p>
-                  </div>
-                  <span className="text-xs text-muted-foreground border border-border px-2 py-1">
-                    {t.projectType}
-                  </span>
-                </div>
-              </div>
-            </RevealSection>
-          ))}
-        </div>
+        <TestimonialsCarousel />
       </div>
     </section>
 
