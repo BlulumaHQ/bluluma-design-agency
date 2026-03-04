@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import logo from "@/assets/bluluma-logo.svg";
 
 const Footer = () => (
-  <footer className="border-t border-border bg-background">
-    <div className="section-container py-16 md:py-20">
+  <footer className="border-t border-border bg-background relative overflow-hidden">
+    <div className="logo-motif absolute inset-0 pointer-events-none" />
+    <div className="section-container py-16 md:py-20 relative z-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         {/* Brand */}
         <div className="lg:col-span-2">
@@ -27,7 +28,7 @@ const Footer = () => (
               <Link
                 key={link.to}
                 to={link.to}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
               >
                 {link.label}
               </Link>
