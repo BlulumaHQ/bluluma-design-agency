@@ -1,18 +1,7 @@
-import { useState } from "react";
 import { useLang } from "@/lib/i18n";
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", business: "", projectType: "", message: "" });
   const { t } = useLang();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(t("form.submit-thanks"));
-  };
 
   return (
     <div>
@@ -26,49 +15,52 @@ const Contact = () => {
       </section>
       <section>
         <div className="section-container section-padding">
-          <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
+          <form
+            action="https://formspree.io/f/xlgprnry"
+            method="POST"
+            className="space-y-6 max-w-4xl"
+          >
+            <input type="hidden" name="_next" value={`${window.location.origin}/thank-you`} />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label htmlFor="name" className="text-sm font-medium block mb-2">{t("form.name")}</label>
                 <input
-                  type="text" id="name" name="name" value={form.name} onChange={handleChange} required
+                  type="text" id="name" name="name" required
                   className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
               <div>
                 <label htmlFor="email" className="text-sm font-medium block mb-2">{t("form.email")}</label>
                 <input
-                  type="email" id="email" name="email" value={form.email} onChange={handleChange} required
+                  type="email" id="email" name="email" required
                   className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
               <div>
-                <label htmlFor="business" className="text-sm font-medium block mb-2">{t("form.business")}</label>
+                <label htmlFor="company" className="text-sm font-medium block mb-2">{t("form.business")}</label>
                 <input
-                  type="text" id="business" name="business" value={form.business} onChange={handleChange}
+                  type="text" id="company" name="company" required
                   className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
               <div>
-                <label htmlFor="projectType" className="text-sm font-medium block mb-2">{t("form.project-type")}</label>
+                <label htmlFor="project_type" className="text-sm font-medium block mb-2">{t("form.project-type")}</label>
                 <select
-                  id="projectType" name="projectType" value={form.projectType} onChange={handleChange}
+                  id="project_type" name="project_type"
                   className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
                 >
                   <option value="">{t("form.select-type")}</option>
-                  <option value="website">{t("form.opt.website")}</option>
-                  <option value="brand">{t("form.opt.brand")}</option>
-                  <option value="ecommerce">{t("form.opt.ecommerce")}</option>
-                  <option value="marketing">{t("form.opt.marketing")}</option>
-                  <option value="automation">{t("form.opt.automation")}</option>
-                  <option value="other">{t("form.opt.other")}</option>
+                  <option value="Website">Website</option>
+                  <option value="Brand Identity">Brand Identity</option>
+                  <option value="Ecommerce">Ecommerce</option>
+                  <option value="Marketing">Marketing</option>
                 </select>
               </div>
             </div>
             <div>
               <label htmlFor="message" className="text-sm font-medium block mb-2">{t("form.message")}</label>
               <textarea
-                id="message" name="message" rows={4} value={form.message} onChange={handleChange} required
+                id="message" name="message" rows={4} required
                 className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors resize-none"
               />
             </div>
