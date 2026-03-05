@@ -46,7 +46,7 @@ const Footer = () => {
           <div>
             <h4 className="text-sm font-semibold mb-4">{t("footer.contact")}</h4>
             <div className="flex flex-col gap-3 text-sm text-muted-foreground">
-              <span>hello@blulumadesign.com</span>
+              <span>support@bluluma.com</span>
               <span>Vancouver, BC, Canada</span>
             </div>
           </div>

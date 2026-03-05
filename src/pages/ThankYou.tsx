@@ -36,8 +36,8 @@ const ThankYou = () => {
             </p>
             <p>
               If your request is urgent, please email us directly at:{" "}
-              <a href="mailto:linsony@gmail.com" className="text-foreground font-medium underline">
-                linsony@gmail.com
+              <a href="mailto:support@bluluma.com" className="text-foreground font-medium underline">
+                support@bluluma.com
               </a>
             </p>
           </div>
