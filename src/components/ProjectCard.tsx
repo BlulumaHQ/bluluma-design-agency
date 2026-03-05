@@ -10,6 +10,7 @@ const serviceKeyMap: Record<string, string> = {
   "Ecommerce Experiences": "svc.ecommerce-experiences",
   "AI Business Automation": "svc.ai-business-automation",
   "Conversion Optimization": "svc.conversion-optimization",
+  "MLS IDX Integration": "MLS IDX Integration",
 };
 
 interface ProjectCardProps {
