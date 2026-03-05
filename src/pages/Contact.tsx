@@ -20,6 +20,7 @@ const Contact = () => {
             method="POST"
             className="space-y-6 max-w-4xl"
           >
+            <input type="hidden" name="_next" value="https://bluluma-design-agency.lovable.app/thank-you" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="name" className="text-sm font-medium block mb-2">Name</label>
@@ -43,12 +44,19 @@ const Contact = () => {
                 />
               </div>
               <div>
-                <label htmlFor="project_type" className="text-sm font-medium block mb-2">Project Type (Optional)</label>
+                <label htmlFor="website_url" className="text-sm font-medium block mb-2">Current Website (Optional)</label>
+                <input
+                  type="text" id="website_url" name="website_url"
+                  className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <label htmlFor="project_type" className="text-sm font-medium block mb-2">Project Type</label>
                 <select
-                  id="project_type" name="project_type"
+                  id="project_type" name="project_type" required
                   className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
                 >
-                  <option value="">Select</option>
+                  <option value="">Select Project Type</option>
                   <option value="Website">Website</option>
                   <option value="Brand Identity">Brand Identity</option>
                   <option value="Ecommerce">Ecommerce</option>

@@ -227,47 +227,28 @@ const TestimonialsCarousel = () => {
 };
 
 const InlineQuoteForm = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    currentUrl: "",
-    projectType: "",
-    message: "",
-  });
   const { t } = useLang();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(t("form.submit-thanks"));
-  };
-
   const inputClass = "w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form action="https://formspree.io/f/xlgprnry" method="POST" className="space-y-4">
+      <input type="hidden" name="_next" value="https://bluluma-design-agency.lovable.app/thank-you" />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="text" name="name" placeholder={`${t("form.name")} *`} value={form.name} onChange={handleChange} required className={inputClass} />
-        <input type="email" name="email" placeholder={`${t("form.email")} *`} value={form.email} onChange={handleChange} required className={inputClass} />
-        <input type="text" name="company" placeholder={`${t("form.company")} *`} value={form.company} onChange={handleChange} required className={inputClass} />
+        <input type="text" name="name" placeholder={`${t("form.name")} *`} required className={inputClass} />
+        <input type="email" name="email" placeholder={`${t("form.email")} *`} required className={inputClass} />
+        <input type="text" name="company" placeholder={`${t("form.company")} *`} required className={inputClass} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="url" name="currentUrl" placeholder={t("form.current-url")} value={form.currentUrl} onChange={handleChange} className={inputClass} />
-        <select name="projectType" value={form.projectType} onChange={handleChange} required className={inputClass}>
+        <input type="text" name="website_url" placeholder={t("form.current-url")} className={inputClass} />
+        <select name="project_type" required className={inputClass}>
           <option value="">{t("form.project-type")} *</option>
-          <option value="website">{t("form.opt.website")}</option>
-          <option value="brand">{t("form.opt.brand")}</option>
-          <option value="ecommerce">{t("form.opt.ecommerce")}</option>
-          <option value="marketing">{t("form.opt.marketing")}</option>
-          <option value="automation">{t("form.opt.automation")}</option>
-          <option value="other">{t("form.opt.other")}</option>
+          <option value="Website">{t("form.opt.website")}</option>
+          <option value="Brand Identity">{t("form.opt.brand")}</option>
+          <option value="Ecommerce">{t("form.opt.ecommerce")}</option>
+          <option value="Marketing">{t("form.opt.marketing")}</option>
         </select>
         <textarea
-          name="message" placeholder={`${t("form.message")} *`} rows={1} value={form.message} onChange={handleChange} required
+          name="message" placeholder={`${t("form.message")} *`} rows={1} required
           className={`${inputClass} resize-none`}
         />
       </div>
