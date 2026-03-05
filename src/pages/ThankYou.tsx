@@ -1,6 +1,27 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    gtag?: (...args: unknown[]) => void;
+  }
+}
 
 const ThankYou = () => {
+  useEffect(() => {
+    // Meta Pixel Lead Event
+    if (window.fbq) {
+      window.fbq('track', 'Lead');
+    }
+    // Google Ads Conversion Event
+    if (window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL',
+      });
+    }
+  }, []);
+
   return (
     <div>
       <section>
