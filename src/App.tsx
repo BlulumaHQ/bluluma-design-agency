@@ -14,6 +14,7 @@ import Agency from "./pages/Agency";
 import Insights from "./pages/Insights";
 import InsightDetail from "./pages/InsightDetail";
 import Contact from "./pages/Contact";
+import ThankYou from "./pages/ThankYou";
 import NotFound from "./pages/NotFound";
 import PageLoader from "./components/PageLoader";
 
@@ -41,6 +42,7 @@ const App = () => (
               <Route path="/insights" element={<Insights />} />
               <Route path="/insights/:slug" element={<InsightDetail />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/thank-you" element={<ThankYou />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
