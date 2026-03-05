@@ -44,9 +44,9 @@ const Contact = () => {
                 />
               </div>
               <div>
-                <label htmlFor="website_url" className="text-sm font-medium block mb-2">Current Website (Optional)</label>
+                <label htmlFor="current_url" className="text-sm font-medium block mb-2">Current Website (Optional)</label>
                 <input
-                  type="text" id="website_url" name="website_url"
+                  type="text" id="current_url" name="current_url"
                   className="w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
@@ -58,12 +58,12 @@ const Contact = () => {
                 >
                   <option value="">Select Your Project Type</option>
                   <option value="Website Design & Development">Website Design & Development</option>
-                  <option value="Brand Identity & Visual Systems">Brand Identity & Visual Systems</option>
-                  <option value="Ecommerce Platform Development">Ecommerce Platform Development</option>
-                  <option value="Social Media Marketing Strategy">Social Media Marketing Strategy</option>
-                  <option value="Graphic Design & Marketing Collateral">Graphic Design & Marketing Collateral</option>
+                  <option value="Brand Identity & Visual System">Brand Identity & Visual System</option>
+                  <option value="Ecommerce Platform">Ecommerce Platform</option>
+                  <option value="Social Media Marketing">Social Media Marketing</option>
                   <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-                  <option value="AI Automation & Workflow Integration">AI Automation & Workflow Integration</option>
+                  <option value="AI Business Automation">AI Business Automation</option>
+                  <option value="Graphic Design & Marketing Materials">Graphic Design & Marketing Materials</option>
                   <option value="Other / Not Sure Yet">Other / Not Sure Yet</option>
                 </select>
               </div>
@@ -86,7 +86,7 @@ const Contact = () => {
           <div className="mt-16 pt-16 border-t border-border grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-label mb-2">{t("form.email")}</h3>
-              <p className="font-medium">hello@blulumadesign.com</p>
+              <p className="font-medium">support@bluluma.com</p>
             </div>
             <div>
               <h3 className="text-label mb-2">{t("contact.location")}</h3>

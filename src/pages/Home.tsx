@@ -239,16 +239,16 @@ const InlineQuoteForm = () => {
         <input type="text" name="company" placeholder={`${t("form.company")} *`} required className={inputClass} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="text" name="website_url" placeholder={t("form.current-url")} className={inputClass} />
+        <input type="text" name="current_url" placeholder={t("form.current-url")} className={inputClass} />
         <select name="project_type" required className={inputClass}>
           <option value="">Select Your Project Type *</option>
           <option value="Website Design & Development">Website Design & Development</option>
-          <option value="Brand Identity & Visual Systems">Brand Identity & Visual Systems</option>
-          <option value="Ecommerce Platform Development">Ecommerce Platform Development</option>
-          <option value="Social Media Marketing Strategy">Social Media Marketing Strategy</option>
-          <option value="Graphic Design & Marketing Collateral">Graphic Design & Marketing Collateral</option>
+          <option value="Brand Identity & Visual System">Brand Identity & Visual System</option>
+          <option value="Ecommerce Platform">Ecommerce Platform</option>
+          <option value="Social Media Marketing">Social Media Marketing</option>
           <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
-          <option value="AI Automation & Workflow Integration">AI Automation & Workflow Integration</option>
+          <option value="AI Business Automation">AI Business Automation</option>
+          <option value="Graphic Design & Marketing Materials">Graphic Design & Marketing Materials</option>
           <option value="Other / Not Sure Yet">Other / Not Sure Yet</option>
         </select>
         <textarea
