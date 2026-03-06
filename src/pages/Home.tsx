@@ -228,6 +228,7 @@ const TestimonialsCarousel = () => {
 
 const InlineQuoteForm = () => {
   const { t } = useLang();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const inputClass = "w-full border border-border px-4 py-3 text-sm bg-background focus:outline-none focus:border-primary transition-colors";
@@ -243,7 +244,7 @@ const InlineQuoteForm = () => {
         headers: { Accept: "application/json" },
       });
       if (res.ok) {
-        window.location.href = "https://bluluma.com/thank-you";
+        navigate("/thank-you");
       } else {
         setError("Something went wrong. Please try again.");
         setSubmitting(false);
