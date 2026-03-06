@@ -171,17 +171,13 @@ const Insights = () => {
                   className="block bg-background group transition-all duration-300 hover:-translate-y-0.5"
                 >
                   <div className="aspect-[16/9] bg-secondary border-b border-border overflow-hidden">
-                    {insightImages[insight.slug] ? (
+                    {insightImages[insight.slug] && (
                       <img
                         src={insightImages[insight.slug]}
                         alt={`${insight.title} — web design insights from Bluluma Design`}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                         loading="lazy"
                       />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
-                        <span className="opacity-40">Article Image</span>
-                      </div>
                     )}
                   </div>
                   <div className="p-6 md:p-8">
