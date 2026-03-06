@@ -1,8 +1,10 @@
 import { useLang } from "@/lib/i18n";
 import { useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const { t } = useLang();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -17,7 +19,7 @@ const Contact = () => {
         headers: { Accept: "application/json" },
       });
       if (res.ok) {
-        window.location.href = "https://bluluma.com/thank-you";
+        navigate("/thank-you");
       } else {
         setError("Something went wrong. Please try again.");
         setSubmitting(false);
