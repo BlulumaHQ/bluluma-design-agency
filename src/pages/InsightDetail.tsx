@@ -76,7 +76,7 @@ const InsightDetail = () => {
                 <div className="mb-12 border border-border overflow-hidden">
                   <img
                     src={inlineImages[i]}
-                    alt={`${insight.title} - visual ${i + 1}`}
+                    alt={`${insight.title} — illustration ${i + 1}`}
                     className="w-full h-auto object-cover aspect-[16/9]"
                     loading="lazy"
                   />
