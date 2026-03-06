@@ -14,6 +14,8 @@ import Solutions from "./pages/Solutions";
 import Agency from "./pages/Agency";
 import Insights from "./pages/Insights";
 import InsightDetail from "./pages/InsightDetail";
+import Services from "./pages/Services";
+import ServiceDetail from "./pages/ServiceDetail";
 import Contact from "./pages/Contact";
 import ThankYou from "./pages/ThankYou";
 import NotFound from "./pages/NotFound";
