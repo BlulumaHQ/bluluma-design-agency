@@ -52,7 +52,7 @@ const InsightDetail = () => {
         <div className="section-container">
           <div className="aspect-[21/9] border border-border overflow-hidden">
             {heroImage ? (
-              <img src={heroImage} alt={insight.title} className="w-full h-full object-cover" />
+              <img src={heroImage} alt={`${insight.title} — digital branding insights from Bluluma Design`} className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full bg-secondary flex items-center justify-center">
                 <span className="text-muted-foreground text-xs opacity-40">Article Hero Image</span>
