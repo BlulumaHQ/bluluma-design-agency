@@ -52,7 +52,7 @@ const InsightDetail = () => {
         <div className="section-container">
           <div className="aspect-[21/9] border border-border overflow-hidden">
             {heroImage ? (
-              <img src={heroImage} alt={insight.title} className="w-full h-full object-cover" />
+              <img src={heroImage} alt={`${insight.title} — digital branding insights from Bluluma Design`} className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full bg-secondary flex items-center justify-center">
                 <span className="text-muted-foreground text-xs opacity-40">Article Hero Image</span>
@@ -76,7 +76,7 @@ const InsightDetail = () => {
                 <div className="mb-12 border border-border overflow-hidden">
                   <img
                     src={inlineImages[i]}
-                    alt={`${insight.title} - visual ${i + 1}`}
+                    alt={`${insight.title} — illustration ${i + 1}`}
                     className="w-full h-auto object-cover aspect-[16/9]"
                     loading="lazy"
                   />

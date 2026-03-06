@@ -144,7 +144,7 @@ const Insights = () => {
                     {insightImages[insight.slug] ? (
                       <img
                         src={insightImages[insight.slug]}
-                        alt={insight.title}
+                        alt={`${insight.title} — web design insights from Bluluma Design`}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                         loading="lazy"
                       />

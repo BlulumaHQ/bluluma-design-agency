@@ -1,8 +1,10 @@
 import { useLang } from "@/lib/i18n";
 import { useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const { t } = useLang();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -17,7 +19,7 @@ const Contact = () => {
         headers: { Accept: "application/json" },
       });
       if (res.ok) {
-        window.location.href = "https://bluluma.com/thank-you";
+        navigate("/thank-you");
       } else {
         setError("Something went wrong. Please try again.");
         setSubmitting(false);
@@ -44,6 +46,7 @@ const Contact = () => {
             onSubmit={handleSubmit}
             className="space-y-6 max-w-4xl"
           >
+            <input type="hidden" name="source" value="bluluma contact form" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="name" className="text-sm font-medium block mb-2">Name</label>
