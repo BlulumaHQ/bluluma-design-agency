@@ -24,12 +24,12 @@ const ProjectCard = ({ project, imageImport, mode = "internal" }: ProjectCardPro
   const isLive = mode === "live" && project.liveUrl;
 
   const cardContent = (
-    <div className="card-border overflow-hidden transition-all duration-300 hover:border-primary hover:-translate-y-1">
-      <div className="h-[240px] md:h-[260px] overflow-hidden relative">
+    <div className="card-border overflow-hidden transition-all duration-300 hover:border-primary hover:-translate-y-1 h-full flex flex-col">
+      <div className="h-[240px] md:h-[260px] overflow-hidden relative flex-shrink-0">
         <img
           src={imageImport}
           alt={`${project.name} — website and brand design project by Bluluma Design Agency`}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
           loading="lazy"
         />
         {isLive && (
@@ -38,7 +38,7 @@ const ProjectCard = ({ project, imageImport, mode = "internal" }: ProjectCardPro
           </span>
         )}
       </div>
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <h3 className="text-lg font-semibold mb-1">{project.name}</h3>
         <p className="text-sm text-muted-foreground mb-3">{project.industry}</p>
         <div className="flex flex-wrap gap-2">
@@ -51,7 +51,7 @@ const ProjectCard = ({ project, imageImport, mode = "internal" }: ProjectCardPro
             </span>
           ))}
         </div>
-        <span className="inline-block mt-4 text-sm font-medium text-primary">
+        <span className="inline-block mt-auto pt-4 text-sm font-medium text-primary">
           {isLive ? t("cta.visit-site") : t("cta.view-project")}
         </span>
       </div>
