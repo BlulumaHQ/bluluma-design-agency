@@ -25,7 +25,7 @@ const ProjectCard = ({ project, imageImport, mode = "internal" }: ProjectCardPro
 
   const cardContent = (
     <div className="card-border overflow-hidden transition-all duration-300 hover:border-primary hover:-translate-y-1">
-      <div className="aspect-[4/3] overflow-hidden relative">
+      <div className="h-[240px] md:h-[260px] overflow-hidden relative">
         <img
           src={imageImport}
           alt={`${project.name} — website and brand design project by Bluluma Design Agency`}
