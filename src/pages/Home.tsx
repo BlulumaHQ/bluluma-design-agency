@@ -387,7 +387,7 @@ const Home = () => {
           </RevealSection>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {randomProjects.map((project, i) => (
-              <RevealSection key={project.slug} delay={i * 100}>
+              <RevealSection key={project.slug} delay={i * 100} className="h-full">
                 <ProjectCard
                   project={project}
                   imageImport={projectImages[project.slug]}
