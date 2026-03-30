@@ -106,8 +106,10 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Home hero
   "home.hero.h1": { en: "We Don't Build Websites.\nWe Build Revenue Systems.", zh: "我們不只做網站。\n我們打造營收系統。" },
-  "home.hero.sub": { en: "High-converting websites and AI automation systems designed to generate leads, increase sales, and scale your business — without wasting months on traditional agencies.", zh: "高轉換率網站與 AI 自動化系統，專為產生潛在客戶、提升銷售和擴展業務而設計——不浪費數月在傳統設計公司上。" },
-  "home.hero.trust": { en: "Trusted by businesses across North America · 10+ Years Experience · Built for Conversion, Not Design", zh: "受北美各地企業信賴 · 10+ 年經驗 · 以轉換為核心，而非單純設計" },
+  "home.hero.h1.line1": { en: "We Don't Build Websites.", zh: "我們不只做網站。" },
+  "home.hero.h1.line2": { en: "We Build Revenue Systems.", zh: "我們打造營收系統。" },
+  "home.hero.sub": { en: "High-converting websites and AI automation systems designed to generate leads, increase sales, and scale your business.", zh: "高轉換率網站與 AI 自動化系統，專為產生潛在客戶、提升銷售和擴展業務而設計。" },
+  "home.hero.trust": { en: "Trusted by businesses across North America · 10+ Years Experience · Built for Conversion", zh: "受北美各地企業信賴 · 10+ 年經驗 · 以轉換為核心" },
 
   // Home problem
   "home.problem.title": { en: "Most Websites Don't Fail Because of Design.", zh: "大多數網站失敗不是因為設計。" },
