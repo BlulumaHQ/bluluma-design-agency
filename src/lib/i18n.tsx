@@ -32,8 +32,10 @@ const translations: Record<string, Record<Lang, string>> = {
   // CTAs
   "cta.view-work": { en: "View Our Work", zh: "查看作品" },
   "cta.view-portfolio": { en: "View Portfolio", zh: "查看作品" },
-  "cta.start-project": { en: "Start a Project", zh: "開始專案" },
+  "cta.start-project": { en: "Start Your Project", zh: "開始你的專案" },
   "cta.request-quote": { en: "Request a Quote", zh: "索取報價" },
+  "cta.get-strategy": { en: "Get Your Website Strategy", zh: "獲取你的網站策略" },
+  "cta.view-case-studies": { en: "View Case Studies", zh: "查看案例研究" },
   "cta.contact-us": { en: "Contact Us", zh: "聯絡我們" },
   "cta.learn-more": { en: "Learn More →", zh: "了解更多 →" },
   "cta.read-more": { en: "Read More", zh: "閱讀更多" },

@@ -44,6 +44,13 @@ const Header = () => {
               {t(link.labelKey)}
             </Link>
           ))}
+          {/* CTA button */}
+          <Link
+            to="/contact"
+            className="px-5 py-2 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary-dark transition-colors"
+          >
+            {headerCtaLabel[lang]}
+          </Link>
           {/* Language switcher */}
           <div className="flex items-center gap-1 text-xs font-medium border border-border">
             <button
