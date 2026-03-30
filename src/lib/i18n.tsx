@@ -102,61 +102,82 @@ const translations: Record<string, Record<Lang, string>> = {
   "label.capabilities": { en: "Capabilities", zh: "能力範圍" },
 
   // Home hero
-  "home.hero.h1": { en: "Design Systems for Modern Businesses", zh: "我們為企業打造品牌與網站系統" },
-  "home.hero.sub": { en: "We design and build high-performance websites, brand platforms, and digital experiences that help businesses grow faster.", zh: "讓你的企業在數位世界中看起來更專業、更可信，也更容易被客戶找到。" },
+  "home.hero.h1": { en: "We Don't Build Websites.\nWe Build Revenue Systems.", zh: "我們不只做網站。\n我們打造營收系統。" },
+  "home.hero.sub": { en: "High-converting websites and AI automation systems designed to generate leads, increase sales, and scale your business — without wasting months on traditional agencies.", zh: "高轉換率網站與 AI 自動化系統，專為產生潛在客戶、提升銷售和擴展業務而設計——不浪費數月在傳統設計公司上。" },
+  "home.hero.trust": { en: "Trusted by businesses across North America · 10+ Years Experience · Built for Conversion, Not Design", zh: "受北美各地企業信賴 · 10+ 年經驗 · 以轉換為核心，而非單純設計" },
+
+  // Home problem
+  "home.problem.title": { en: "Most Websites Don't Fail Because of Design.", zh: "大多數網站失敗不是因為設計。" },
+  "home.problem.intro": { en: "They fail because they don't convert.", zh: "而是因為它們無法將訪客轉化為客戶。" },
+  "home.problem.b1": { en: "No clear offer or value proposition", zh: "沒有清楚的產品定位或價值主張" },
+  "home.problem.b2": { en: "No structured funnel to guide visitors", zh: "沒有引導訪客的結構化漏斗" },
+  "home.problem.b3": { en: "No conversion strategy or CTA hierarchy", zh: "沒有轉換策略或行動呼籲層次" },
+  "home.problem.b4": { en: "No automation system to capture and follow up", zh: "沒有自動化系統來捕捉和跟進潛在客戶" },
+  "home.problem.closing": { en: "You don't need a better-looking website. You need a system that generates revenue.", zh: "你不需要更好看的網站。你需要的是一個能產生營收的系統。" },
+
+  // Home solution
+  "home.solution.title": { en: "We Build Complete Conversion Systems", zh: "我們打造完整的轉換系統" },
+  "home.solution.intro": { en: "At Bluluma, we don't sell design. We engineer systems that turn traffic into leads and leads into revenue.", zh: "在 Bluluma，我們不賣設計。我們打造將流量轉化為潛在客戶、將潛在客戶轉化為營收的系統。" },
+  "home.solution.i1": { en: "Conversion-first layout architecture", zh: "以轉換為核心的版面架構" },
+  "home.solution.i2": { en: "Strategic user flow design", zh: "策略性使用者流程設計" },
+  "home.solution.i3": { en: "Clear CTA hierarchy throughout", zh: "清晰的行動呼籲層次" },
+  "home.solution.i4": { en: "AI automation integration", zh: "AI 自動化整合" },
+  "home.solution.i5": { en: "Business-driven design decisions", zh: "以業務為導向的設計決策" },
+
+  // Home core services
+  "home.services.title": { en: "What We Build", zh: "我們打造什麼" },
+  "home.svc1.title": { en: "Conversion Website System", zh: "高轉換率網站系統" },
+  "home.svc1.desc": { en: "High-performance websites built to convert visitors into leads and customers. Every page, every section, every element is engineered for results.", zh: "以高效能打造的網站，將訪客轉化為潛在客戶和顧客。每一頁、每一區塊都以成果為導向。" },
+  "home.svc2.title": { en: "AI Automation System", zh: "AI 自動化系統" },
+  "home.svc2.desc": { en: "Automate lead capture, follow-ups, and workflows to scale your business without increasing workload. Work smarter, not harder.", zh: "自動化潛在客戶捕捉、跟進和工作流程，讓你在不增加工作量的情況下擴展業務。" },
+  "home.svc3.title": { en: "Brand Identity System", zh: "品牌識別系統" },
+  "home.svc3.desc": { en: "Premium branding designed to build trust, authority, and perceived value. Position your business as the obvious choice in your market.", zh: "高端品牌設計，建立信任、權威和感知價值。讓你的企業成為市場中的首選。" },
+
+  // Home how it works
+  "home.howitworks.title": { en: "How It Works", zh: "運作方式" },
+  "home.step1.title": { en: "Strategy", zh: "策略規劃" },
+  "home.step1.desc": { en: "We analyze your business, positioning, and goals to create a conversion roadmap tailored to your market.", zh: "我們分析你的業務、市場定位和目標，制定專屬的轉換路線圖。" },
+  "home.step2.title": { en: "System Build", zh: "系統建置" },
+  "home.step2.desc": { en: "We design and build your conversion system — website, automation, and brand identity working together.", zh: "我們設計並建置你的轉換系統——網站、自動化和品牌識別協同運作。" },
+  "home.step3.title": { en: "Launch & Optimize", zh: "啟動與優化" },
+  "home.step3.desc": { en: "We refine and prepare your system for growth. Launch with confidence, then optimize for maximum performance.", zh: "我們精煉並準備你的系統以促進成長。自信啟動，然後持續優化以獲得最佳表現。" },
+
+  // Home differentiation
+  "home.diff.title": { en: "Why Bluluma Is Different", zh: "為什麼選擇 Bluluma" },
+  "home.diff.col.them": { en: "Most Agencies", zh: "一般設計公司" },
+  "home.diff.col.us": { en: "Bluluma", zh: "Bluluma" },
+  "home.diff.them1": { en: "Focus on making things look pretty", zh: "只注重外觀美觀" },
+  "home.diff.us1": { en: "We focus on generating results", zh: "我們專注於產生成果" },
+  "home.diff.them2": { en: "Take months to deliver", zh: "需要好幾個月才能交付" },
+  "home.diff.us2": { en: "We build efficiently and strategically", zh: "我們高效且有策略地建置" },
+  "home.diff.them3": { en: "Build websites that look good", zh: "建立好看的網站" },
+  "home.diff.us3": { en: "We build systems that convert", zh: "我們建立會轉換的系統" },
+
+  // Home pricing
+  "home.pricing.title": { en: "Investment", zh: "投資方案" },
+  "home.pricing.sub": { en: "Transparent pricing for businesses ready to invest in growth.", zh: "為準備投資成長的企業提供透明定價。" },
+  "home.pricing.label": { en: "Projects Start From", zh: "專案起價" },
+  "home.pricing.range": { en: "$1,499 – $5,000+", zh: "$1,499 – $5,000+" },
+  "home.pricing.note": { en: "Most clients invest between $1,500 – $5,000+ depending on scope and complexity.", zh: "大多數客戶的投資額在 $1,500 – $5,000+ 之間，視範圍和複雜度而定。" },
+
+  // Home proof
+  "home.proof.title": { en: "Real Results. Not Just Designs.", zh: "真實成果，不只是設計。" },
+  "home.proof.sub": { en: "See how we've helped businesses grow with conversion-focused systems.", zh: "看看我們如何以轉換導向的系統幫助企業成長。" },
+
+  // Home final CTA
+  "home.finalcta.title": { en: "Ready to Turn Your Website Into a Revenue System?", zh: "準備好把你的網站變成營收系統了嗎？" },
+  "home.finalcta.sub": { en: "Book a free strategy session and get a custom conversion roadmap for your business.", zh: "預約免費策略會議，獲取你的專屬轉換路線圖。" },
 
   // Home selected work
   "home.work.title": { en: "Selected Work", zh: "精選作品" },
   "home.work.label": { en: "Live Sites", zh: "實際網站" },
-  "home.work.intro": { en: "", zh: "每一個專案都是為企業量身打造，從品牌識別到網站平台，再到行銷視覺設計，讓企業在市場中呈現一致且專業的形象。" },
-  "home.work.note": { en: "", zh: "點擊專案可直接開啟實際網站（新分頁）。" },
-
-  // Home what we build
-  "home.build.title": { en: "What We Build", zh: "我們能為你打造什麼" },
-  "home.build.cap1.title": { en: "Digital Platforms", zh: "網站平台" },
-  "home.build.cap1.desc": { en: "Modern websites and scalable digital platforms designed for performance and growth.", zh: "建立清晰、快速且可擴展的現代化網站平台，兼顧行動裝置體驗與長期維護。" },
-  "home.build.cap2.title": { en: "Brand Systems", zh: "品牌識別系統" },
-  "home.build.cap2.desc": { en: "Strategic identity systems that create consistent and recognizable brands.", zh: "不只是 Logo，而是可延伸到網站與行銷素材的完整品牌系統與設計規範。" },
-  "home.build.cap3.title": { en: "Ecommerce Experiences", zh: "電商體驗" },
-  "home.build.cap3.desc": { en: "Online stores designed to maximize product presentation and conversion.", zh: "以品牌一致性為核心的電商網站設計，提升產品呈現與購買流程體驗。" },
-  "home.build.cap4.title": { en: "AI Business Automation", zh: "行銷設計" },
-  "home.build.cap4.desc": { en: "Automation tools and intelligent workflows that improve operational efficiency.", zh: "從社群視覺到宣傳素材，協助品牌在每一次曝光都保持一致且專業。" },
-
-  // Home industries
-  "home.industries.title": { en: "Industries We Work With", zh: "合作產業" },
-  "home.industries.intro": { en: "", zh: "不同產業有不同的客戶決策模式與溝通方式。我們會根據產業特性設計最適合的網站結構與品牌呈現。" },
 
   // Home testimonials
   "home.testimonials.title": { en: "What Clients Say", zh: "客戶回饋" },
 
-  // Home how we work
-  "home.workflow.title": { en: "How We Work", zh: "我們的流程" },
-  "home.workflow.s1.title": { en: "Strategy", zh: "策略與規劃" },
-  "home.workflow.s1.desc": { en: "Understanding the business, audience, and project goals before design begins.", zh: "了解你的企業、目標客戶與市場定位，建立清晰的品牌與網站方向。" },
-  "home.workflow.s2.title": { en: "Design", zh: "設計與品牌系統" },
-  "home.workflow.s2.desc": { en: "Creating the brand system and visual layout that defines the digital experience.", zh: "設計品牌識別與網站視覺系統，確保整體風格一致且專業。" },
-  "home.workflow.s3.title": { en: "Build", zh: "網站建置" },
-  "home.workflow.s3.desc": { en: "Developing the website and preparing all assets for launch.", zh: "建立現代化網站平台，確保在桌面與手機上都能完美呈現。" },
-  "home.workflow.s4.title": { en: "Launch", zh: "發布與優化" },
-  "home.workflow.s4.desc": { en: "Publishing the website and ensuring everything runs smoothly.", zh: "網站上線後，我們會協助基本驗收與必要調整，確保網站穩定運作。" },
-
-  // Home workflow deliverables
-  "home.workflow.d1.1": { en: "Project brief", zh: "專案概述" },
-  "home.workflow.d1.2": { en: "Site structure", zh: "網站架構" },
-  "home.workflow.d1.3": { en: "Design direction", zh: "設計方向" },
-  "home.workflow.d2.1": { en: "Brand visuals", zh: "品牌視覺" },
-  "home.workflow.d2.2": { en: "Website layout", zh: "網站版面" },
-  "home.workflow.d2.3": { en: "UI design", zh: "介面設計" },
-  "home.workflow.d3.1": { en: "Website development", zh: "網站開發" },
-  "home.workflow.d3.2": { en: "Responsive layout", zh: "響應式設計" },
-  "home.workflow.d3.3": { en: "Performance optimization", zh: "效能優化" },
-  "home.workflow.d4.1": { en: "Deployment", zh: "部署上線" },
-  "home.workflow.d4.2": { en: "Testing", zh: "測試驗收" },
-  "home.workflow.d4.3": { en: "Final delivery", zh: "最終交付" },
-
   // Home quote section
-  "home.quote.title": { en: "Request a Quote", zh: "索取報價" },
-  "home.quote.text": { en: "Tell us about your project and we'll get back to you with next steps.", zh: "請簡單描述你的需求，我們會盡快回覆並提供下一步建議。" },
+  "home.quote.title": { en: "Get Your Website Strategy", zh: "獲取你的網站策略" },
+  "home.quote.text": { en: "Tell us about your business and we'll create a custom conversion roadmap for you.", zh: "告訴我們你的業務，我們將為你制定專屬的轉換路線圖。" },
 
   // Home case studies
   "home.casestudies.title": { en: "Case Studies", zh: "案例研究" },
