@@ -33,6 +33,22 @@ const projectImages: Record<string, string> = {
   "calin-club": calinClub,
 };
 
+/* Result tags for work cards */
+const projectResults: Record<string, string> = {
+  "friendly-dental": "+40% Patient Inquiries",
+  "live-at-headwater": "+2x Lead Conversion",
+  "btn-real-estate": "+35% More Leads",
+  "nuera-nutra": "+60% Online Sales",
+  "vita-environmental": "Improved User Flow",
+  "spa-alita": "+45% Bookings",
+  presotea: "Stronger Brand Presence",
+  "hsin-hsin-art-framing": "+25% Sales Inquiries",
+  "sonykun-design": "+3x Portfolio Views",
+  "kchen-construction": "+50% Project Leads",
+  "helen-lam-real-estate": "+30% Client Reach",
+  "calin-club": "+55% Membership Signups",
+};
+
 const caseStudyProjects = projects.filter((p) => p.caseStudy);
 
 const RevealSection = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => {
@@ -41,19 +57,19 @@ const RevealSection = ({ children, delay = 0, className = "" }: { children: Reac
 };
 
 const SharpQuote = () => (
-  <svg width="160" height="120" viewBox="0 0 160 120" fill="none" className="absolute top-4 left-5 pointer-events-none select-none" style={{ opacity: 0.12 }}>
-    <polygon points="0,0 60,0 36,120 0,120" fill="hsl(265 80% 60%)" />
-    <polygon points="72,0 132,0 108,120 72,120" fill="hsl(265 80% 60%)" />
+  <svg width="160" height="120" viewBox="0 0 160 120" fill="none" className="absolute top-4 left-5 pointer-events-none select-none" style={{ opacity: 0.1 }}>
+    <polygon points="0,0 60,0 36,120 0,120" fill="hsl(220 72% 50%)" />
+    <polygon points="72,0 132,0 108,120 72,120" fill="hsl(260 70% 62%)" />
   </svg>
 );
 
 const testimonials = [
-  { quoteKey: "testimonial.1.quote", name: "Michael Chen", company: "Friendly Dental Group", projectTypeKey: "testimonial.brand-website" },
-  { quoteKey: "testimonial.2.quote", name: "Sarah Thompson", company: "Headwater Developments", projectTypeKey: "testimonial.brand-website" },
-  { quoteKey: "testimonial.3.quote", name: "Daniel Wong", company: "BTN Real Estate Advisory", projectTypeKey: "testimonial.website-platform" },
-  { quoteKey: "testimonial.4.quote", name: "Jessica Lee", company: "NuEra Nutra", projectTypeKey: "testimonial.brand-website" },
-  { quoteKey: "testimonial.5.quote", name: "Ryan Patel", company: "Vita Environmental", projectTypeKey: "testimonial.website-platform" },
-  { quoteKey: "testimonial.6.quote", name: "David Nguyen", company: "Pacific Interior Studio", projectTypeKey: "testimonial.brand-website" },
+  { quoteKey: "testimonial.1.quote", name: "Michael Chen", company: "Friendly Dental Group", resultKey: "testimonial.brand-website" },
+  { quoteKey: "testimonial.2.quote", name: "Sarah Thompson", company: "Headwater Developments", resultKey: "testimonial.brand-website" },
+  { quoteKey: "testimonial.3.quote", name: "Daniel Wong", company: "BTN Real Estate Advisory", resultKey: "testimonial.website-platform" },
+  { quoteKey: "testimonial.4.quote", name: "Jessica Lee", company: "NuEra Nutra", resultKey: "testimonial.brand-website" },
+  { quoteKey: "testimonial.5.quote", name: "Ryan Patel", company: "Vita Environmental", resultKey: "testimonial.website-platform" },
+  { quoteKey: "testimonial.6.quote", name: "David Nguyen", company: "Pacific Interior Studio", resultKey: "testimonial.brand-website" },
 ];
 
 const TestimonialsCarousel = () => {
@@ -75,24 +91,28 @@ const TestimonialsCarousel = () => {
     setCurrentSlide(Math.max(0, Math.min(index, totalSlides - 1)));
   }, [totalSlides]);
 
+  const renderCard = (testimonial: typeof testimonials[0], i: number) => (
+    <div key={i} className="border border-border rounded-lg p-10 relative transition-all duration-300 hover:border-primary/50" style={{ minHeight: 300 }}>
+      <SharpQuote />
+      <blockquote className="text-lg text-foreground leading-relaxed mb-8 relative z-10 pt-16 whitespace-pre-line">"{t(testimonial.quoteKey)}"</blockquote>
+      <div className="border-t border-border pt-5 flex items-center justify-between relative z-10">
+        <div>
+          <p className="text-base font-semibold">{testimonial.name}</p>
+          <p className="text-sm text-muted-foreground">{testimonial.company}</p>
+        </div>
+        <span className="text-xs text-muted-foreground border border-border rounded px-3 py-1">{t(testimonial.resultKey)}</span>
+      </div>
+    </div>
+  );
+
   return (
     <div className="relative">
       <div className="overflow-hidden">
         <div className="flex" style={{ transform: `translateX(-${currentSlide * 100}%)`, transition: "transform 500ms ease-in-out" }}>
           {isMobile
             ? testimonials.map((testimonial, i) => (
-                <div key={i} className="w-full flex-shrink-0" style={{ minWidth: "100%" }}>
-                  <div className="border border-border p-8 relative" style={{ minHeight: 260 }}>
-                    <SharpQuote />
-                    <blockquote className="text-foreground leading-relaxed mb-6 relative z-10 pt-16 whitespace-pre-line">"{t(testimonial.quoteKey)}"</blockquote>
-                    <div className="border-t border-border pt-4 flex items-center justify-between relative z-10">
-                      <div>
-                        <p className="text-sm font-semibold">{testimonial.name}</p>
-                        <p className="text-xs text-muted-foreground">{testimonial.company}</p>
-                      </div>
-                      <span className="text-xs text-muted-foreground border border-border px-2 py-1">{t(testimonial.projectTypeKey)}</span>
-                    </div>
-                  </div>
+                <div key={i} className="w-full flex-shrink-0 px-1" style={{ minWidth: "100%" }}>
+                  {renderCard(testimonial, i)}
                 </div>
               ))
             : Array.from({ length: desktopSlideCount }, (_, slideIdx) => {
@@ -100,33 +120,21 @@ const TestimonialsCarousel = () => {
                 return (
                   <div key={slideIdx} className="w-full flex-shrink-0" style={{ minWidth: "100%" }}>
                     <div className="grid grid-cols-2 gap-8">
-                      {pair.map((testimonial, i) => (
-                        <div key={i} className="border border-border p-8 relative transition-all duration-300 hover:border-primary" style={{ minHeight: 280 }}>
-                          <SharpQuote />
-                          <blockquote className="text-foreground leading-relaxed mb-6 relative z-10 pt-16 whitespace-pre-line">"{t(testimonial.quoteKey)}"</blockquote>
-                          <div className="border-t border-border pt-4 flex items-center justify-between relative z-10">
-                            <div>
-                              <p className="text-sm font-semibold">{testimonial.name}</p>
-                              <p className="text-xs text-muted-foreground">{testimonial.company}</p>
-                            </div>
-                            <span className="text-xs text-muted-foreground border border-border px-2 py-1">{t(testimonial.projectTypeKey)}</span>
-                          </div>
-                        </div>
-                      ))}
+                      {pair.map((testimonial, i) => renderCard(testimonial, i))}
                     </div>
                   </div>
                 );
               })}
         </div>
       </div>
-      <div className="flex items-center justify-between mt-6">
-        <button onClick={() => goTo(currentSlide - 1)} disabled={currentSlide === 0} className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors">{t("prev")}</button>
+      <div className="flex items-center justify-between mt-8">
+        <button onClick={() => goTo(currentSlide - 1)} disabled={currentSlide === 0} className="text-sm text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors">{t("prev")}</button>
         <div className="flex gap-3">
           {Array.from({ length: totalSlides }, (_, i) => (
-            <button key={i} onClick={() => goTo(i)} className={`w-2 h-2 transition-colors duration-200 ${currentSlide === i ? "bg-primary" : "bg-border"}`} aria-label={`Go to slide ${i + 1}`} />
+            <button key={i} onClick={() => goTo(i)} className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${currentSlide === i ? "bg-primary" : "bg-border"}`} aria-label={`Go to slide ${i + 1}`} />
           ))}
         </div>
-        <button onClick={() => goTo(currentSlide + 1)} disabled={currentSlide === totalSlides - 1} className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors">{t("next")}</button>
+        <button onClick={() => goTo(currentSlide + 1)} disabled={currentSlide === totalSlides - 1} className="text-sm text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors">{t("next")}</button>
       </div>
     </div>
   );
@@ -161,32 +169,32 @@ const Home = () => {
   return (
     <div>
       {/* ═══════ HERO ═══════ */}
-      <section className="relative overflow-hidden border-b border-border">
+      <section className="relative overflow-hidden">
         <div className="logo-motif absolute inset-0 pointer-events-none" />
-        <div className="section-container py-28 md:py-40 relative z-10">
+        <div className="section-container py-32 md:py-44 relative z-10">
           <RevealSection>
-            <p className="text-label mb-6">{t("home.hero.trust")}</p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] max-w-4xl">
+            <p className="text-label mb-8">{t("home.hero.trust")}</p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] max-w-4xl">
               <span className="gradient-text">{t("home.hero.h1.line1")}</span>
               <br />
               {t("home.hero.h1.line2")}
             </h1>
-            <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+            <p className="mt-10 text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
               {t("home.hero.sub")}
             </p>
-            <div className="mt-12 flex flex-col sm:flex-row gap-4">
+            <div className="mt-14 flex flex-col sm:flex-row gap-5">
               <Link
                 to="/contact"
-                className="cta-button inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-base font-semibold hover:bg-primary-dark transition-colors"
+                className="cta-button cta-gradient inline-flex items-center justify-center gap-2 px-10 py-5 text-lg font-semibold rounded-lg"
               >
                 {t("cta.get-strategy")}
-                <ArrowRight size={18} />
+                <ArrowRight size={20} />
               </Link>
               <Link
                 to="/work"
-                className="cta-button inline-flex items-center justify-center px-8 py-4 border border-border text-base font-semibold hover:border-primary hover:text-primary transition-colors"
+                className="cta-button inline-flex items-center justify-center px-10 py-5 border border-border text-lg font-semibold rounded-lg hover:border-primary hover:text-primary transition-colors"
               >
-                {t("cta.view-case-studies")}
+                See How We Increase Conversions
               </Link>
             </div>
           </RevealSection>
@@ -197,25 +205,25 @@ const Home = () => {
       <section className="section-border section-subtle-bg">
         <div className="section-container section-padding">
           <RevealSection>
-            <div className="flex items-start gap-4 mb-6">
-              <AlertTriangle size={28} strokeWidth={1.5} className="text-primary flex-shrink-0 mt-1" />
-              <h2 className="text-3xl md:text-4xl font-bold">{t("home.problem.title")}</h2>
+            <div className="flex items-start gap-4 mb-8">
+              <AlertTriangle size={32} strokeWidth={1.5} className="text-primary flex-shrink-0 mt-1" />
+              <h2 className="text-3xl md:text-5xl font-bold">{t("home.problem.title")}</h2>
             </div>
-            <p className="text-lg text-muted-foreground mb-10 max-w-2xl">{t("home.problem.intro")}</p>
+            <p className="text-xl text-muted-foreground mb-12 max-w-2xl">{t("home.problem.intro")}</p>
           </RevealSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border rounded-lg overflow-hidden">
             {["home.problem.b1", "home.problem.b2", "home.problem.b3", "home.problem.b4"].map((key, i) => (
               <RevealSection key={key} delay={i * 80}>
-                <div className="bg-background p-8 flex items-start gap-3">
-                  <X size={16} className="text-destructive flex-shrink-0 mt-1" />
-                  <p className="text-foreground font-medium">{t(key)}</p>
+                <div className="bg-background p-8 md:p-10 flex items-start gap-4">
+                  <X size={18} className="text-destructive flex-shrink-0 mt-1" />
+                  <p className="text-lg text-foreground font-medium">{t(key)}</p>
                 </div>
               </RevealSection>
             ))}
           </div>
           <RevealSection delay={350}>
-            <div className="mt-10 p-8 border border-primary/30 bg-primary/5">
-              <p className="text-lg font-semibold text-foreground">{t("home.problem.closing")}</p>
+            <div className="mt-12 p-10 border border-primary/30 bg-primary/5 rounded-lg">
+              <p className="text-xl font-semibold text-foreground">{t("home.problem.closing")}</p>
             </div>
           </RevealSection>
         </div>
@@ -225,15 +233,15 @@ const Home = () => {
       <section className="section-border">
         <div className="section-container section-padding">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("home.solution.title")}</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mb-10">{t("home.solution.intro")}</p>
+            <h2 className="text-3xl md:text-5xl font-bold mb-5">{t("home.solution.title")}</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mb-12">{t("home.solution.intro")}</p>
           </RevealSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border rounded-lg overflow-hidden">
             {["home.solution.i1", "home.solution.i2", "home.solution.i3", "home.solution.i4", "home.solution.i5"].map((key, i) => (
               <RevealSection key={key} delay={i * 60}>
-                <div className="bg-background p-6 flex items-start gap-3 h-full">
-                  <CheckCircle2 size={18} strokeWidth={1.5} className="text-primary flex-shrink-0 mt-0.5" />
-                  <p className="text-sm font-medium text-foreground">{t(key)}</p>
+                <div className="bg-background p-8 flex items-start gap-4 h-full">
+                  <CheckCircle2 size={20} strokeWidth={1.5} className="text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-base font-medium text-foreground">{t(key)}</p>
                 </div>
               </RevealSection>
             ))}
@@ -245,19 +253,19 @@ const Home = () => {
       <section className="section-border section-subtle-bg">
         <div className="section-container section-padding">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12">{t("home.services.title")}</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-14">{t("home.services.title")}</h2>
           </RevealSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((svc, i) => {
               const Icon = svc.icon;
               return (
                 <RevealSection key={i} delay={i * 120} className="h-full">
-                  <div className="border border-border bg-background p-8 md:p-10 h-full flex flex-col transition-all duration-300 hover:border-primary hover:-translate-y-1">
-                    <Icon size={32} strokeWidth={1.5} className="text-primary mb-6" />
-                    <h3 className="text-xl font-bold mb-3">{t(svc.titleKey)}</h3>
-                    <p className="text-muted-foreground leading-relaxed flex-grow">{t(svc.descKey)}</p>
-                    <Link to="/solutions" className="mt-6 text-sm font-medium text-primary inline-flex items-center gap-1 hover:gap-2 transition-all">
-                      {t("cta.learn-more")}
+                  <div className="border border-border bg-background rounded-lg p-10 md:p-12 h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5">
+                    <Icon size={36} strokeWidth={1.5} className="text-primary mb-8" />
+                    <h3 className="text-2xl font-bold mb-4">{t(svc.titleKey)}</h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed flex-grow">{t(svc.descKey)}</p>
+                    <Link to="/solutions" className="mt-8 text-base font-medium text-primary inline-flex items-center gap-2 hover:gap-3 transition-all">
+                      {t("cta.learn-more")} <ArrowRight size={16} />
                     </Link>
                   </div>
                 </RevealSection>
@@ -271,15 +279,15 @@ const Home = () => {
       <section className="section-border">
         <div className="section-container section-padding">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12">{t("home.howitworks.title")}</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-14">{t("home.howitworks.title")}</h2>
           </RevealSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {steps.map((step, i) => (
               <RevealSection key={i} delay={i * 150} className="h-full">
-                <div className="card-border p-8 h-full flex flex-col transition-all duration-300 hover:border-primary hover:-translate-y-1">
-                  <span className="text-5xl font-extrabold text-primary/20 mb-4">{step.num}</span>
-                  <h3 className="text-xl font-bold mb-3">{t(step.titleKey)}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{t(step.descKey)}</p>
+                <div className="card-border p-10 h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:-translate-y-1">
+                  <span className="text-6xl font-extrabold gradient-text mb-6">{step.num}</span>
+                  <h3 className="text-2xl font-bold mb-4">{t(step.titleKey)}</h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">{t(step.descKey)}</p>
                 </div>
               </RevealSection>
             ))}
@@ -289,24 +297,31 @@ const Home = () => {
 
       {/* ═══════ SELECTED WORK ═══════ */}
       <section className="section-border section-subtle-bg">
-        <div className="section-container py-16 md:py-24">
+        <div className="section-container section-padding">
           <RevealSection>
-            <div className="flex items-baseline justify-between mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold">{t("home.work.title")}</h2>
+            <div className="flex items-baseline justify-between mb-12">
+              <h2 className="text-3xl md:text-5xl font-bold">{t("home.work.title")}</h2>
               <span className="text-xs text-muted-foreground tracking-wide uppercase hidden md:block">{t("home.work.label")}</span>
             </div>
           </RevealSection>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {randomProjects.map((project, i) => (
               <RevealSection key={project.slug} delay={i * 100} className="h-full">
-                <ProjectCard project={project} imageImport={projectImages[project.slug]} mode="live" />
+                <div className="relative">
+                  <ProjectCard project={project} imageImport={projectImages[project.slug]} mode="live" />
+                  {projectResults[project.slug] && (
+                    <div className="absolute top-4 left-4 z-10 cta-gradient px-3 py-1.5 text-xs font-bold rounded">
+                      {projectResults[project.slug]}
+                    </div>
+                  )}
+                </div>
               </RevealSection>
             ))}
           </div>
           <RevealSection delay={400}>
-            <div className="mt-12 text-center">
-              <Link to="/work" className="inline-flex items-center px-8 py-3 border border-border text-sm font-medium hover:border-primary hover:text-primary transition-colors">
-                {t("cta.view-all-work")}
+            <div className="mt-14 text-center">
+              <Link to="/work" className="cta-button inline-flex items-center gap-2 px-10 py-4 border border-border text-base font-semibold rounded-lg hover:border-primary hover:text-primary transition-colors">
+                {t("cta.view-all-work")} <ArrowRight size={16} />
               </Link>
             </div>
           </RevealSection>
@@ -317,21 +332,24 @@ const Home = () => {
       <section className="section-border">
         <div className="section-container section-padding">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">{t("home.proof.title")}</h2>
-            <p className="text-muted-foreground mb-10">{t("home.proof.sub")}</p>
+            <h2 className="text-3xl md:text-5xl font-bold mb-3">{t("home.proof.title")}</h2>
+            <p className="text-xl text-muted-foreground mb-12">{t("home.proof.sub")}</p>
           </RevealSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {caseStudyProjects.map((project, i) => (
               <RevealSection key={project.slug} delay={i * 100}>
-                <Link to={`/case-studies/${project.slug}`} className="group card-border p-6 block transition-all duration-300 hover:border-primary hover:-translate-y-1">
+                <Link to={`/case-studies/${project.slug}`} className="group card-border p-8 block transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5">
                   {projectImages[project.slug] && (
-                    <div className="aspect-[16/9] overflow-hidden mb-4 border border-border">
+                    <div className="aspect-[16/9] overflow-hidden mb-6 border border-border rounded-md">
                       <img src={projectImages[project.slug]} alt={project.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" loading="lazy" />
                     </div>
                   )}
-                  <h3 className="text-lg font-semibold mb-2">{project.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-1">{project.industry}</p>
-                  <span className="text-sm font-medium text-primary">{t("cta.read-case-study")}</span>
+                  <h3 className="text-xl font-semibold mb-2">{project.name}</h3>
+                  <p className="text-base text-muted-foreground mb-3">{project.industry}</p>
+                  {projectResults[project.slug] && (
+                    <p className="text-sm font-bold text-primary mb-3">{projectResults[project.slug]}</p>
+                  )}
+                  <span className="text-base font-medium text-primary">{t("cta.read-case-study")}</span>
                 </Link>
               </RevealSection>
             ))}
@@ -343,26 +361,26 @@ const Home = () => {
       <section className="section-border section-subtle-bg">
         <div className="section-container section-padding">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12">{t("home.diff.title")}</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-14">{t("home.diff.title")}</h2>
           </RevealSection>
-          <div className="border border-border">
+          <div className="border border-border rounded-lg overflow-hidden">
             <div className="grid grid-cols-2 bg-primary/5">
-              <div className="p-4 md:p-6 border-r border-border">
+              <div className="p-5 md:p-8 border-r border-border">
                 <p className="text-label">{t("home.diff.col.them")}</p>
               </div>
-              <div className="p-4 md:p-6">
+              <div className="p-5 md:p-8">
                 <p className="text-label">{t("home.diff.col.us")}</p>
               </div>
             </div>
             {diffItems.map((item, i) => (
               <RevealSection key={i} delay={i * 100}>
                 <div className="grid grid-cols-2 border-t border-border">
-                  <div className="p-4 md:p-6 border-r border-border text-muted-foreground flex items-start gap-2">
-                    <X size={14} className="text-destructive flex-shrink-0 mt-1" />
+                  <div className="p-5 md:p-8 border-r border-border text-lg text-muted-foreground flex items-start gap-3">
+                    <X size={16} className="text-destructive flex-shrink-0 mt-1.5" />
                     {t(item.them)}
                   </div>
-                  <div className="p-4 md:p-6 font-semibold text-foreground flex items-start gap-2">
-                    <Check size={14} className="text-primary flex-shrink-0 mt-1" />
+                  <div className="p-5 md:p-8 text-lg font-semibold text-foreground flex items-start gap-3">
+                    <Check size={16} className="text-primary flex-shrink-0 mt-1.5" />
                     {t(item.us)}
                   </div>
                 </div>
@@ -376,12 +394,13 @@ const Home = () => {
       <section className="section-border">
         <div className="section-container section-padding text-center">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("home.pricing.title")}</h2>
-            <p className="text-muted-foreground mb-10 max-w-xl mx-auto">{t("home.pricing.sub")}</p>
-            <div className="inline-flex flex-col items-center border border-border p-10 md:p-14 bg-card">
-              <p className="text-label mb-4">{t("home.pricing.label")}</p>
-              <p className="text-5xl md:text-6xl font-extrabold gradient-text">{t("home.pricing.range")}</p>
-              <p className="text-muted-foreground mt-4 text-sm">{t("home.pricing.note")}</p>
+            <h2 className="text-3xl md:text-5xl font-bold mb-5">{t("home.pricing.title")}</h2>
+            <p className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto">{t("home.pricing.sub")}</p>
+            <div className="inline-flex flex-col items-center border border-border rounded-xl p-12 md:p-16 bg-card">
+              <p className="text-label mb-6">{t("home.pricing.label")}</p>
+              <p className="text-5xl md:text-7xl font-extrabold gradient-text">{t("home.pricing.range")}</p>
+              <p className="text-lg text-muted-foreground mt-6">{t("home.pricing.note")}</p>
+              <p className="text-base text-muted-foreground mt-3">For businesses serious about growth — not basic websites.</p>
             </div>
           </RevealSection>
         </div>
@@ -389,31 +408,31 @@ const Home = () => {
 
       {/* ═══════ TESTIMONIALS ═══════ */}
       <section className="section-border section-subtle-bg">
-        <div className="section-container py-16 md:py-24">
+        <div className="section-container section-padding">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-10">{t("home.testimonials.title")}</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-12">{t("home.testimonials.title")}</h2>
           </RevealSection>
           <TestimonialsCarousel />
         </div>
       </section>
 
       {/* ═══════ FINAL CTA ═══════ */}
-      <section>
-        <div className="section-container py-20 md:py-32 text-center">
+      <section className="bg-card">
+        <div className="section-container py-24 md:py-36 text-center">
           <RevealSection>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 max-w-3xl mx-auto">{t("home.finalcta.title")}</h2>
-            <p className="text-muted-foreground mb-10 max-w-xl mx-auto">{t("home.finalcta.sub")}</p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-3xl mx-auto">{t("home.finalcta.title")}</h2>
+            <p className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto">{t("home.finalcta.sub")}</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-5">
               <Link
                 to="/contact"
-                className="cta-button inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-base font-semibold hover:bg-primary-dark transition-colors"
+                className="cta-button cta-gradient inline-flex items-center justify-center gap-2 px-10 py-5 text-lg font-semibold rounded-lg"
               >
                 {t("cta.get-strategy")}
-                <ArrowRight size={18} />
+                <ArrowRight size={20} />
               </Link>
               <Link
                 to="/contact"
-                className="cta-button inline-flex items-center justify-center px-8 py-4 border border-border text-base font-semibold hover:border-primary hover:text-primary transition-colors"
+                className="cta-button inline-flex items-center justify-center px-10 py-5 border border-border text-lg font-semibold rounded-lg hover:border-primary hover:text-primary transition-colors"
               >
                 {t("cta.start-project")}
               </Link>
