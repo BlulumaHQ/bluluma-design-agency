@@ -16,7 +16,7 @@ import sonykunDesign from "@/assets/projects/sonykun-design.jpg";
 import kchenConstruction from "@/assets/projects/kchen-construction.jpg";
 import helenLam from "@/assets/projects/helen-lam-real-estate.jpg";
 import calinClub from "@/assets/projects/calin-club.jpg";
-import { Heart, Briefcase, Building2, Sparkles, Palette, Wrench, ShoppingCart, GraduationCap } from "lucide-react";
+import { Target, Zap, Gem, AlertTriangle, CheckCircle2, ArrowRight } from "lucide-react";
 
 const projectImages: Record<string, string> = {
   "friendly-dental": friendlyDental,
@@ -35,35 +35,10 @@ const projectImages: Record<string, string> = {
 
 const caseStudyProjects = projects.filter((p) => p.caseStudy);
 
-const industries = [
-  { name: "Healthcare & Dental", key: "ind.healthcare-dental", icon: Heart },
-  { name: "Professional Services", key: "ind.professional-services", icon: Briefcase },
-  { name: "Real Estate & Construction", key: "ind.real-estate-construction", icon: Building2 },
-  { name: "Lifestyle Businesses", key: "ind.lifestyle-businesses", icon: Sparkles },
-  { name: "Creative & Luxury Brands", key: "ind.creative-luxury-brands", icon: Palette },
-  { name: "Home Services", key: "ind.home-services", icon: Wrench },
-  { name: "Retail & Ecommerce", key: "ind.retail-ecommerce", icon: ShoppingCart },
-  { name: "Education & Training", key: "ind.education-training", icon: GraduationCap },
-];
-
 const RevealSection = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => {
   const ref = useScrollReveal<HTMLDivElement>({ delay });
   return <div ref={ref} className={className}>{children}</div>;
 };
-
-const FlowArrowRight = () => (
-  <svg width="40" height="24" viewBox="0 0 40 24" fill="none" className="hidden md:block flex-shrink-0 mx-2">
-    <line x1="0" y1="12" x2="32" y2="12" stroke="hsl(220, 62%, 51%)" strokeWidth="1.5" />
-    <polyline points="28,7 34,12 28,17" stroke="hsl(220, 62%, 51%)" strokeWidth="1.5" fill="none" />
-  </svg>
-);
-
-const FlowArrowDown = () => (
-  <svg width="24" height="32" viewBox="0 0 24 32" fill="none" className="block md:hidden mx-auto my-2">
-    <line x1="12" y1="0" x2="12" y2="24" stroke="hsl(220, 62%, 51%)" strokeWidth="1.5" />
-    <polyline points="7,20 12,26 17,20" stroke="hsl(220, 62%, 51%)" strokeWidth="1.5" fill="none" />
-  </svg>
-);
 
 const SharpQuote = () => (
   <svg
@@ -174,11 +149,7 @@ const TestimonialsCarousel = () => {
             Array.from({ length: desktopSlideCount }, (_, slideIdx) => {
               const pair = testimonials.slice(slideIdx * 2, slideIdx * 2 + 2);
               return (
-                <div
-                  key={slideIdx}
-                  className="w-full flex-shrink-0 flex-grow-0"
-                  style={{ minWidth: "100%" }}
-                >
+                <div key={slideIdx} className="w-full flex-shrink-0 flex-grow-0" style={{ minWidth: "100%" }}>
                   <div className="grid grid-cols-2 gap-8">
                     {pair.map((testimonial, i) => (
                       <div
@@ -210,11 +181,7 @@ const TestimonialsCarousel = () => {
       </div>
 
       <div className="flex items-center justify-between mt-6">
-        <button
-          onClick={prev}
-          disabled={currentSlide === 0}
-          className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors"
-        >
+        <button onClick={prev} disabled={currentSlide === 0} className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors">
           {t("prev")}
         </button>
         <div className="flex gap-3">
@@ -222,18 +189,12 @@ const TestimonialsCarousel = () => {
             <button
               key={i}
               onClick={() => goTo(i)}
-              className={`w-2 h-2 transition-colors duration-200 ${
-                currentSlide === i ? "bg-primary" : "bg-border"
-              }`}
+              className={`w-2 h-2 transition-colors duration-200 ${currentSlide === i ? "bg-primary" : "bg-border"}`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
         </div>
-        <button
-          onClick={next}
-          disabled={currentSlide === totalSlides - 1}
-          className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors"
-        >
+        <button onClick={next} disabled={currentSlide === totalSlides - 1} className="text-xs text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors">
           {t("next")}
         </button>
       </div>
@@ -296,14 +257,14 @@ const InlineQuoteForm = () => {
           className={`${inputClass} resize-none`}
         />
       </div>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-destructive">{error}</p>}
       <div>
         <button
           type="submit"
           disabled={submitting}
           className="inline-flex items-center px-8 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
         >
-          {submitting ? "Sending..." : t("cta.request-quote")}
+          {submitting ? "Sending..." : t("cta.get-strategy")}
         </button>
       </div>
     </form>
@@ -318,25 +279,22 @@ const Home = () => {
     return shuffled.slice(0, 4);
   }, []);
 
-  const capKeys = [
-    { titleKey: "home.build.cap1.title", descKey: "home.build.cap1.desc" },
-    { titleKey: "home.build.cap2.title", descKey: "home.build.cap2.desc" },
-    { titleKey: "home.build.cap3.title", descKey: "home.build.cap3.desc" },
-    { titleKey: "home.build.cap4.title", descKey: "home.build.cap4.desc" },
+  const services = [
+    { icon: Target, titleKey: "home.svc1.title", descKey: "home.svc1.desc" },
+    { icon: Zap, titleKey: "home.svc2.title", descKey: "home.svc2.desc" },
+    { icon: Gem, titleKey: "home.svc3.title", descKey: "home.svc3.desc" },
   ];
 
-  const workflowKeys = [
-    { titleKey: "home.workflow.s1.title", descKey: "home.workflow.s1.desc" },
-    { titleKey: "home.workflow.s2.title", descKey: "home.workflow.s2.desc" },
-    { titleKey: "home.workflow.s3.title", descKey: "home.workflow.s3.desc" },
-    { titleKey: "home.workflow.s4.title", descKey: "home.workflow.s4.desc" },
+  const steps = [
+    { num: "01", titleKey: "home.step1.title", descKey: "home.step1.desc" },
+    { num: "02", titleKey: "home.step2.title", descKey: "home.step2.desc" },
+    { num: "03", titleKey: "home.step3.title", descKey: "home.step3.desc" },
   ];
 
-  const workflowDeliverables = [
-    ["home.workflow.d1.1", "home.workflow.d1.2", "home.workflow.d1.3"],
-    ["home.workflow.d2.1", "home.workflow.d2.2", "home.workflow.d2.3"],
-    ["home.workflow.d3.1", "home.workflow.d3.2", "home.workflow.d3.3"],
-    ["home.workflow.d4.1", "home.workflow.d4.2", "home.workflow.d4.3"],
+  const diffItems = [
+    { them: "home.diff.them1", us: "home.diff.us1" },
+    { them: "home.diff.them2", us: "home.diff.us2" },
+    { them: "home.diff.them3", us: "home.diff.us3" },
   ];
 
   return (
@@ -346,6 +304,7 @@ const Home = () => {
         <div className="logo-motif absolute inset-0 pointer-events-none" />
         <div className="section-container py-24 md:py-36 relative z-10">
           <RevealSection>
+            <p className="text-label mb-4">{t("home.hero.trust")}</p>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] max-w-4xl">
               {t("home.hero.h1")}
             </h1>
@@ -354,36 +313,128 @@ const Home = () => {
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
-                to="/work"
-                className="cta-button inline-flex items-center px-6 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+                to="/contact"
+                className="cta-button inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-base font-semibold hover:bg-primary-dark transition-colors"
               >
-                {t("cta.view-work")}
+                {t("cta.get-strategy")}
+                <ArrowRight size={18} />
               </Link>
               <Link
-                to="/contact"
-                className="cta-button inline-flex items-center px-6 py-3 border border-foreground text-sm font-medium hover:bg-foreground hover:text-background transition-colors"
+                to="/case-studies"
+                className="cta-button inline-flex items-center px-8 py-4 border border-foreground text-base font-semibold hover:bg-foreground hover:text-background transition-colors"
               >
-                {t("cta.request-quote")}
+                {t("cta.view-case-studies")}
               </Link>
             </div>
           </RevealSection>
         </div>
       </section>
 
-      {/* ═══════ SELECTED WORK ═══════ */}
+      {/* ═══════ PROBLEM ═══════ */}
+      <section className="section-border section-subtle-bg">
+        <div className="section-container section-padding">
+          <RevealSection>
+            <div className="flex items-start gap-4 mb-6">
+              <AlertTriangle size={28} strokeWidth={1.5} className="text-primary flex-shrink-0 mt-1" />
+              <h2 className="text-3xl md:text-4xl font-bold">{t("home.problem.title")}</h2>
+            </div>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl">{t("home.problem.intro")}</p>
+          </RevealSection>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
+            {["home.problem.b1", "home.problem.b2", "home.problem.b3", "home.problem.b4"].map((key, i) => (
+              <RevealSection key={key} delay={i * 80}>
+                <div className="bg-background p-8 flex items-start gap-3">
+                  <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-foreground font-medium">{t(key)}</p>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
+          <RevealSection delay={350}>
+            <div className="mt-10 p-8 border border-primary/20 bg-primary/5">
+              <p className="text-lg font-semibold text-foreground">{t("home.problem.closing")}</p>
+            </div>
+          </RevealSection>
+        </div>
+      </section>
+
+      {/* ═══════ SOLUTION ═══════ */}
       <section className="section-border">
+        <div className="section-container section-padding">
+          <RevealSection>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("home.solution.title")}</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mb-8">{t("home.solution.intro")}</p>
+          </RevealSection>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
+            {[
+              "home.solution.i1", "home.solution.i2", "home.solution.i3",
+              "home.solution.i4", "home.solution.i5",
+            ].map((key, i) => (
+              <RevealSection key={key} delay={i * 60}>
+                <div className="bg-background p-6 flex items-start gap-3 h-full">
+                  <CheckCircle2 size={18} strokeWidth={1.5} className="text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm font-medium text-foreground">{t(key)}</p>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════ CORE SERVICES ═══════ */}
+      <section className="section-border section-subtle-bg">
+        <div className="section-container section-padding">
+          <RevealSection>
+            <h2 className="text-3xl md:text-4xl font-bold mb-10">{t("home.services.title")}</h2>
+          </RevealSection>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.map((svc, i) => {
+              const Icon = svc.icon;
+              return (
+                <RevealSection key={i} delay={i * 120} className="h-full">
+                  <div className="border border-border bg-background p-8 md:p-10 h-full flex flex-col transition-all duration-300 hover:border-primary hover:-translate-y-1">
+                    <Icon size={32} strokeWidth={1.5} className="text-primary mb-6" />
+                    <h3 className="text-xl font-bold mb-3">{t(svc.titleKey)}</h3>
+                    <p className="text-muted-foreground leading-relaxed flex-grow">{t(svc.descKey)}</p>
+                    <Link to="/services" className="mt-6 text-sm font-medium text-primary inline-flex items-center gap-1 hover:gap-2 transition-all">
+                      {t("cta.learn-more")}
+                    </Link>
+                  </div>
+                </RevealSection>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════ HOW IT WORKS ═══════ */}
+      <section className="section-border">
+        <div className="section-container section-padding">
+          <RevealSection>
+            <h2 className="text-3xl md:text-4xl font-bold mb-10">{t("home.howitworks.title")}</h2>
+          </RevealSection>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {steps.map((step, i) => (
+              <RevealSection key={i} delay={i * 150} className="h-full">
+                <div className="card-border p-8 h-full flex flex-col transition-all duration-300 hover:border-primary hover:-translate-y-1">
+                  <span className="text-4xl font-extrabold text-primary/20 mb-4">{step.num}</span>
+                  <h3 className="text-xl font-bold mb-3">{t(step.titleKey)}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{t(step.descKey)}</p>
+                </div>
+              </RevealSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════ SELECTED WORK ═══════ */}
+      <section className="section-border section-subtle-bg">
         <div className="section-container py-12 md:py-16">
           <RevealSection>
             <div className="flex items-baseline justify-between mb-4">
               <h2 className="text-3xl md:text-4xl font-bold">{t("home.work.title")}</h2>
               <span className="text-xs text-muted-foreground tracking-wide uppercase hidden md:block">{t("home.work.label")}</span>
             </div>
-            {lang === "zh" && t("home.work.intro") && (
-              <p className="text-muted-foreground mb-2 max-w-2xl">{t("home.work.intro")}</p>
-            )}
-            {lang === "zh" && t("home.work.note") && (
-              <p className="text-sm text-muted-foreground mb-6">{t("home.work.note")}</p>
-            )}
           </RevealSection>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {randomProjects.map((project, i) => (
@@ -409,33 +460,12 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ═══════ WHAT WE BUILD ═══════ */}
-      <section className="section-border section-subtle-bg">
-        <div className="section-container section-padding">
-          <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-8">{t("home.build.title")}</h2>
-          </RevealSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
-            {capKeys.map((cap, i) => (
-              <RevealSection key={i} delay={i * 80} className="flex">
-                <div className="bg-background p-8 md:p-10 transition-colors duration-300 hover:bg-secondary flex flex-col w-full">
-                  <h3 className="text-xl font-semibold mb-3">{t(cap.titleKey)}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{t(cap.descKey)}</p>
-                </div>
-              </RevealSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ CASE STUDIES ═══════ */}
+      {/* ═══════ PROOF / CASE STUDIES ═══════ */}
       <section className="section-border">
         <div className="section-container section-padding">
           <RevealSection>
-            <div className="flex items-baseline justify-between mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold">{t("home.casestudies.title")}</h2>
-              <span className="text-xs text-muted-foreground tracking-wide uppercase hidden md:block">{t("home.casestudies.label")}</span>
-            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-2">{t("home.proof.title")}</h2>
+            <p className="text-muted-foreground mb-8">{t("home.proof.sub")}</p>
           </RevealSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {caseStudyProjects.map((project, i) => (
@@ -464,97 +494,85 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ═══════ INDUSTRIES ═══════ */}
-      <section className="section-border section-subtle-bg relative overflow-hidden">
-        <div className="logo-motif absolute inset-0 pointer-events-none" />
-        <div className="section-container py-12 md:py-16 relative z-10">
+      {/* ═══════ DIFFERENTIATION ═══════ */}
+      <section className="section-border section-subtle-bg">
+        <div className="section-container section-padding">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("home.industries.title")}</h2>
-            {lang === "zh" && t("home.industries.intro") && (
-              <p className="text-muted-foreground mb-6 max-w-2xl">{t("home.industries.intro")}</p>
-            )}
+            <h2 className="text-3xl md:text-4xl font-bold mb-10">{t("home.diff.title")}</h2>
           </RevealSection>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
-            {industries.map((ind, i) => {
-              const Icon = ind.icon;
-              return (
-                <RevealSection key={ind.key} delay={i * 60}>
-                  <Link
-                    to="/industries"
-                    className="bg-background p-6 text-sm font-medium block transition-colors duration-300 hover:text-primary flex items-center gap-3"
-                  >
-                    <Icon size={20} strokeWidth={1.5} className="text-primary flex-shrink-0" />
-                    {t(ind.key)}
-                  </Link>
-                </RevealSection>
-              );
-            })}
+          <div className="border border-border">
+            {/* Header row */}
+            <div className="grid grid-cols-2 bg-primary/5">
+              <div className="p-4 md:p-6 border-r border-border">
+                <p className="text-label">{t("home.diff.col.them")}</p>
+              </div>
+              <div className="p-4 md:p-6">
+                <p className="text-label">{t("home.diff.col.us")}</p>
+              </div>
+            </div>
+            {diffItems.map((item, i) => (
+              <RevealSection key={i} delay={i * 100}>
+                <div className="grid grid-cols-2 border-t border-border">
+                  <div className="p-4 md:p-6 border-r border-border text-muted-foreground">
+                    {t(item.them)}
+                  </div>
+                  <div className="p-4 md:p-6 font-semibold text-foreground">
+                    {t(item.us)}
+                  </div>
+                </div>
+              </RevealSection>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════ HOW WE WORK ═══════ */}
+      {/* ═══════ PRICING ANCHOR ═══════ */}
       <section className="section-border">
-        <div className="section-container py-12 md:py-16">
+        <div className="section-container section-padding text-center">
           <RevealSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-8">{t("home.workflow.title")}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("home.pricing.title")}</h2>
+            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">{t("home.pricing.sub")}</p>
+            <div className="inline-flex flex-col items-center border border-border p-8 md:p-12 bg-background">
+              <p className="text-label mb-3">{t("home.pricing.label")}</p>
+              <p className="text-4xl md:text-5xl font-extrabold text-foreground">{t("home.pricing.range")}</p>
+              <p className="text-muted-foreground mt-3 text-sm">{t("home.pricing.note")}</p>
+            </div>
           </RevealSection>
-
-          {/* Desktop: horizontal with arrows */}
-          <div className="hidden md:flex items-stretch justify-between">
-            {workflowKeys.map((w, i) => (
-              <div key={i} className="contents">
-                <RevealSection delay={i * 150} className="flex-1 flex">
-                  <div className="card-border p-6 transition-all duration-300 hover:border-primary hover:-translate-y-1 group flex flex-col w-full">
-                    <span className="text-label mb-4 block">0{i + 1}</span>
-                    <h3 className="text-lg font-semibold mb-2">{t(w.titleKey)}</h3>
-                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{t(w.descKey)}</p>
-                    <div className="space-y-1 mt-auto">
-                      {workflowDeliverables[i].map((dKey) => (
-                        <p key={dKey} className="text-xs text-muted-foreground">— {t(dKey)}</p>
-                      ))}
-                    </div>
-                  </div>
-                </RevealSection>
-                {i < workflowKeys.length - 1 && (
-                  <div className="flex items-center self-center pt-8">
-                    <FlowArrowRight />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile: vertical with arrows */}
-          <div className="md:hidden space-y-0">
-            {workflowKeys.map((w, i) => (
-              <div key={i}>
-                <RevealSection delay={i * 120}>
-                  <div className="card-border p-6 transition-all duration-300 hover:border-primary">
-                    <span className="text-label mb-4 block">0{i + 1}</span>
-                    <h3 className="text-lg font-semibold mb-2">{t(w.titleKey)}</h3>
-                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{t(w.descKey)}</p>
-                    <div className="space-y-1">
-                      {workflowDeliverables[i].map((dKey) => (
-                        <p key={dKey} className="text-xs text-muted-foreground">— {t(dKey)}</p>
-                      ))}
-                    </div>
-                  </div>
-                </RevealSection>
-                {i < workflowKeys.length - 1 && <FlowArrowDown />}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* ═══════ TESTIMONIALS ═══════ */}
-      <section className="section-border">
+      <section className="section-border section-subtle-bg">
         <div className="section-container py-12 md:py-16">
           <RevealSection>
             <h2 className="text-3xl md:text-4xl font-bold mb-8">{t("home.testimonials.title")}</h2>
           </RevealSection>
           <TestimonialsCarousel />
+        </div>
+      </section>
+
+      {/* ═══════ FINAL CTA ═══════ */}
+      <section className="section-border">
+        <div className="section-container py-16 md:py-24 text-center">
+          <RevealSection>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 max-w-3xl mx-auto">{t("home.finalcta.title")}</h2>
+            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">{t("home.finalcta.sub")}</p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                to="/contact"
+                className="cta-button inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-base font-semibold hover:bg-primary-dark transition-colors"
+              >
+                {t("cta.get-strategy")}
+                <ArrowRight size={18} />
+              </Link>
+              <Link
+                to="/contact"
+                className="cta-button inline-flex items-center px-8 py-4 border border-foreground text-base font-semibold hover:bg-foreground hover:text-background transition-colors"
+              >
+                {t("cta.start-project")}
+              </Link>
+            </div>
+          </RevealSection>
         </div>
       </section>
 

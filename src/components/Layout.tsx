@@ -37,7 +37,7 @@ const Layout = () => {
         className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-primary text-primary-foreground text-xs font-medium px-3 py-6 hover:bg-primary-dark transition-colors duration-200 hidden md:block"
         style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
       >
-        Request a Quote
+        Get Strategy
       </Link>
 
       {/* Scroll to top */}
