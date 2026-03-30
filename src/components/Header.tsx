@@ -15,6 +15,8 @@ const navLinks = [
   { labelKey: "nav.contact", to: "/contact" },
 ];
 
+const headerCtaLabel = { en: "Get Strategy", zh: "獲取策略" };
+
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
