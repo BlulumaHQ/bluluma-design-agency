@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { ArrowUp } from "lucide-react";
+import CookieConsent from "./CookieConsent";
 
 const Layout = () => {
   const { pathname } = useLocation();
