@@ -357,23 +357,45 @@ const Home = () => {
         <div className="section-container section-padding">
           <RevealSection>
             <div className="flex items-baseline justify-between mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold">{t("home.work.title")}</h2>
+              <h2 className="text-3xl md:text-5xl font-bold">Selected Real Estate Projects</h2>
               <span className="text-xs text-muted-foreground tracking-wide uppercase hidden md:block">{t("home.work.label")}</span>
             </div>
           </RevealSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {randomProjects.map((project, i) => (
-              <RevealSection key={project.slug} delay={i * 100} className="h-full">
-                <div className="relative">
-                  <ProjectCard project={project} imageImport={projectImages[project.slug]} mode="live" />
-                  {projectResults[project.slug] && (
-                    <div className="absolute top-4 left-4 z-10 cta-solid px-3 py-1.5 text-xs font-bold rounded">
-                      {projectResults[project.slug]}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {realEstateProjects.map((tile, i) => {
+              const Wrapper: React.ElementType = tile.href ? "a" : "div";
+              const wrapperProps = tile.href
+                ? { href: tile.href, target: "_blank", rel: "noopener noreferrer" }
+                : {};
+              return (
+                <RevealSection key={tile.key} delay={i * 80} className="h-full">
+                  <Wrapper
+                    {...wrapperProps}
+                    className="group block h-full border border-border bg-background rounded-lg overflow-hidden transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                      <img
+                        src={tile.image}
+                        alt={`${tile.name} — real estate website project by Bluluma`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                        loading="lazy"
+                        width={1280}
+                        height={960}
+                      />
+                      {tile.isConcept && (
+                        <span className="absolute top-4 left-4 z-10 bg-background/95 backdrop-blur-sm border border-border text-foreground text-[11px] font-semibold tracking-wide uppercase rounded px-2.5 py-1">
+                          Sample Concept
+                        </span>
+                      )}
                     </div>
-                  )}
-                </div>
-              </RevealSection>
-            ))}
+                    <div className="p-7">
+                      <h3 className="text-xl font-semibold mb-2">{tile.name}</h3>
+                      <p className="text-base text-muted-foreground leading-relaxed">{tile.result}</p>
+                    </div>
+                  </Wrapper>
+                </RevealSection>
+              );
+            })}
           </div>
           <RevealSection delay={400}>
             <div className="mt-14 text-center">
