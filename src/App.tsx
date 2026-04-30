@@ -18,7 +18,7 @@ import Insights from "./pages/Insights";
 import InsightDetail from "./pages/InsightDetail";
 import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
-import Contact from "./pages/Contact";
+import Start from "./pages/Start";
 import ThankYou from "./pages/ThankYou";
 import NotFound from "./pages/NotFound";
 import Realtor from "./pages/Realtor";
@@ -64,7 +64,8 @@ const App = () => (
               <Route path="/insights/realtor" element={<Insights />} />
               <Route path="/insights/dentist" element={<Insights />} />
               <Route path="/insights/:slug" element={<InsightDetail />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/start" element={<Start />} />
+              <Route path="/contact" element={<Start />} />
               <Route path="/thank-you" element={<ThankYou />} />
             </Route>
             <Route path="/realtor" element={<Realtor />} />
