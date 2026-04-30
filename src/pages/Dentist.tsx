@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { getLatestByIndustry } from "@/lib/articles";
+import { useLang } from "@/lib/i18n";
 import {
   LayoutDashboard,
   Sparkles,
@@ -38,31 +39,32 @@ const Reveal = ({
   );
 };
 
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-US", {
+const formatDate = (iso: string, lang: "en" | "zh") =>
+  new Date(iso).toLocaleDateString(lang === "zh" ? "zh-TW" : "en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 
 /* ── Local minimal header for /dentist only ── */
-const DentistHeader = () => {
+const DentistHeader = ({ tt }: { tt: (en: string, zh: string) => string }) => {
   const [open, setOpen] = useState(false);
+  const { lang, setLang } = useLang();
   const links = [
-    { label: "Home", to: "#top" },
-    { label: "Problem", to: "#problem" },
-    { label: "What We Build", to: "#solution" },
-    { label: "Examples", to: "#portfolio" },
-    { label: "Insights", to: "#insights" },
-    { label: "Contact", to: "#cta" },
+    { label: tt("Home", "首頁"), to: "#top" },
+    { label: tt("Problem", "問題"), to: "#problem" },
+    { label: tt("What We Build", "我們建構什麼"), to: "#solution" },
+    { label: tt("Examples", "案例"), to: "#portfolio" },
+    { label: tt("Insights", "洞察"), to: "#insights" },
+    { label: tt("Contact", "聯絡"), to: "#cta" },
   ];
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="section-container flex items-center justify-between h-20">
         <a href="#top" className="flex-shrink-0 flex items-center gap-3">
-          <img src={logo} alt="Sonykun Design logo" className="h-10 w-auto" />
+          <img src={logo} alt="Bluluma logo" className="h-10 w-auto" />
           <span className="text-sm font-semibold text-muted-foreground hidden sm:inline">
-            for Dental Clinics
+            {tt("for Dental Clinics", "牙科診所專屬")}
           </span>
         </a>
 
@@ -80,25 +82,35 @@ const DentistHeader = () => {
             href="/proposal"
             className="cta-solid px-5 py-2.5 text-sm font-semibold rounded-lg"
           >
-            Request a Proposal
+            {tt("Request a Proposal", "申請提案")}
           </a>
+          <div className="flex items-center text-xs font-medium border border-border rounded-md overflow-hidden">
+            <button onClick={() => setLang("en")} className={`px-2.5 py-1.5 transition-colors ${lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>EN</button>
+            <button onClick={() => setLang("zh")} className={`px-2.5 py-1.5 transition-colors ${lang === "zh" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>中文</button>
+          </div>
           <Link
             to="/"
             className="text-xs text-muted-foreground hover:text-primary transition-colors"
           >
-            Sonykun →
+            Bluluma →
           </Link>
         </nav>
 
-        <button
-          className="lg:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          <span className={`block w-6 h-px bg-foreground transition-transform ${open ? "rotate-45 translate-y-[3.5px]" : ""}`} />
-          <span className={`block w-6 h-px bg-foreground transition-opacity ${open ? "opacity-0" : ""}`} />
-          <span className={`block w-6 h-px bg-foreground transition-transform ${open ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
-        </button>
+        <div className="lg:hidden flex items-center gap-3">
+          <div className="flex items-center text-xs font-medium border border-border rounded-md overflow-hidden">
+            <button onClick={() => setLang("en")} className={`px-2 py-1 transition-colors ${lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>EN</button>
+            <button onClick={() => setLang("zh")} className={`px-2 py-1 transition-colors ${lang === "zh" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>中文</button>
+          </div>
+          <button
+            className="flex flex-col gap-1.5 p-2"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            <span className={`block w-6 h-px bg-foreground transition-transform ${open ? "rotate-45 translate-y-[3.5px]" : ""}`} />
+            <span className={`block w-6 h-px bg-foreground transition-opacity ${open ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-px bg-foreground transition-transform ${open ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
+          </button>
+        </div>
       </div>
       {open && (
         <nav className="lg:hidden border-t border-border bg-background">
@@ -118,10 +130,10 @@ const DentistHeader = () => {
               onClick={() => setOpen(false)}
               className="w-full text-center cta-solid px-6 py-3.5 text-base font-semibold rounded-lg"
             >
-              Request a Proposal
+              {tt("Request a Proposal", "申請提案")}
             </a>
             <Link to="/" className="text-xs text-muted-foreground">
-              Sonykun →
+              Bluluma →
             </Link>
           </div>
         </nav>
@@ -130,15 +142,15 @@ const DentistHeader = () => {
   );
 };
 
-const DentistFooter = () => (
+const DentistFooter = ({ tt }: { tt: (en: string, zh: string) => string }) => (
   <footer className="section-dark border-t border-border">
     <div
       className="section-container py-12 flex flex-col md:flex-row justify-between items-center gap-4 text-sm"
       style={{ color: "hsl(220 10% 55%)" }}
     >
-      <span>© 2026 Bluluma. All rights reserved.</span>
+      <span>{tt("© 2026 Bluluma. All rights reserved.", "© 2026 Bluluma. 版權所有。")}</span>
       <span>
-        Web Design by{" "}
+        {tt("Web Design by ", "網站設計：")}
         <Link to="/" className="hover:text-primary transition-colors">
           Bluluma
         </Link>
@@ -149,76 +161,87 @@ const DentistFooter = () => (
 
 /* ── Page ── */
 const Dentist = () => {
+  const { lang } = useLang();
+  const tt = (en: string, zh: string) => (lang === "zh" ? zh : en);
   const insights = getLatestByIndustry("Dentist", 3);
 
   const problems = [
     {
-      title: "Outdated Website Structure",
-      desc: "Many clinic websites are hard to navigate and don't clearly explain services, making it difficult for patients to take action.",
+      title: tt("Outdated Website Structure", "過時的網站結構"),
+      desc: tt(
+        "Many clinic websites are hard to navigate and don't clearly explain services, making it difficult for patients to take action.",
+        "許多診所網站不易瀏覽，服務說明不清楚，讓患者難以採取行動。"
+      ),
     },
     {
-      title: "No Lead Capture System",
-      desc: "Patients visit but leave without booking because there's no clear call-to-action or easy contact method.",
+      title: tt("No Lead Capture System", "沒有客戶獲取系統"),
+      desc: tt(
+        "Patients visit but leave without booking because there's no clear call-to-action or easy contact method.",
+        "患者訪問網站後直接離開，因為沒有清晰的行動引導或方便的聯絡方式。"
+      ),
     },
     {
-      title: "Front Desk Overload",
-      desc: "Staff spend too much time answering repetitive questions instead of focusing on patients.",
+      title: tt("Front Desk Overload", "前台超載"),
+      desc: tt(
+        "Staff spend too much time answering repetitive questions instead of focusing on patients.",
+        "員工花太多時間回答重複問題，無法專注於照顧患者。"
+      ),
     },
   ];
 
   const solution = [
-    { icon: LayoutDashboard, label: "High-conversion dental website" },
-    { icon: Stethoscope, label: "Clear service pages (cleaning, implants, Invisalign, etc.)" },
-    { icon: Smartphone, label: "Mobile-friendly design" },
-    { icon: PhoneCall, label: "Click-to-call and booking request" },
-    { icon: MapPin, label: "Google Map + location clarity" },
-    { icon: ShieldCheck, label: "Trust sections (reviews, certifications)" },
-    { icon: Sparkles, label: "Basic branding setup if needed" },
-    { icon: Bot, label: "AI-ready structure for future automation" },
+    { icon: LayoutDashboard, label: tt("High-conversion dental website", "高轉換率牙科網站") },
+    { icon: Stethoscope, label: tt("Clear service pages (cleaning, implants, Invisalign, etc.)", "清晰的服務頁面（洗牙、植牙、隱適美等）") },
+    { icon: Smartphone, label: tt("Mobile-friendly design", "行動裝置友善設計") },
+    { icon: PhoneCall, label: tt("Click-to-call and booking request", "一鍵通話與預約功能") },
+    { icon: MapPin, label: tt("Google Map + location clarity", "Google 地圖與位置清楚標示") },
+    { icon: ShieldCheck, label: tt("Trust sections (reviews, certifications)", "信任區塊（評論、認證）") },
+    { icon: Sparkles, label: tt("Basic branding setup if needed", "基本品牌設定（如有需要）") },
+    { icon: Bot, label: tt("AI-ready structure for future automation", "預留 AI 自動化結構") },
   ];
 
   const portfolio = [
     {
       name: "SmileCraft Dental Clinic",
-      tag: "Family Dental",
-      desc: "Clean modern clinic, focus on family dentistry.",
+      tag: tt("Family Dental", "家庭牙科"),
+      desc: tt("Clean modern clinic, focus on family dentistry.", "簡潔現代的診所，專注於家庭牙科。"),
       image: smilecraftImg,
     },
     {
       name: "BrightPath Dental Studio",
-      tag: "Cosmetic",
-      desc: "High-end aesthetic dental branding.",
+      tag: tt("Cosmetic", "美學牙科"),
+      desc: tt("High-end aesthetic dental branding.", "高端美學牙科品牌設計。"),
       image: brightpathImg,
     },
     {
       name: "WestSide Dental Care",
-      tag: "Community Clinic",
-      desc: "Local community clinic feel.",
+      tag: tt("Community Clinic", "社區診所"),
+      desc: tt("Local community clinic feel.", "在地社區診所的親切感。"),
       image: westsideImg,
     },
     {
       name: "PureSmile Implant Centre",
-      tag: "Implant Specialist",
-      desc: "Implant-focused professional site.",
+      tag: tt("Implant Specialist", "植牙專科"),
+      desc: tt("Implant-focused professional site.", "專注植牙的專業網站。"),
       image: puresmileImg,
     },
     {
       name: "CityCore Dental Group",
-      tag: "Multi-Location",
-      desc: "Multi-location clinic branding.",
+      tag: tt("Multi-Location", "多分院"),
+      desc: tt("Multi-location clinic branding.", "多分院診所品牌設計。"),
       image: citycoreImg,
     },
     {
       name: "GentleTouch Family Dental",
-      tag: "Patient-First",
-      desc: "Friendly, patient-first design.",
+      tag: tt("Patient-First", "患者優先"),
+      desc: tt("Friendly, patient-first design.", "友善、以患者為先的設計。"),
       image: gentletouchImg,
     },
   ];
 
   return (
     <div id="top" className="flex flex-col min-h-screen">
-      <DentistHeader />
+      <DentistHeader tt={tt} />
 
       <main className="flex-1">
         {/* HERO (dark) */}
@@ -226,33 +249,42 @@ const Dentist = () => {
           <div className="section-container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                For Dental Clinics
+                {tt("For Dental Clinics", "牙科診所專屬")}
               </span>
               <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Websites for Dental Clinics That Actually Bring in Patients
+                {tt(
+                  "Websites for Dental Clinics That Actually Bring in Patients",
+                  "真正能為牙科診所帶來患者的網站"
+                )}
               </h1>
               <p
                 className="mt-6 text-lg leading-relaxed"
                 style={{ color: "hsl(220 10% 70%)" }}
               >
-                We help dental clinics build professional websites, improve online visibility, and use AI tools to reduce front desk workload and increase patient inquiries.
+                {tt(
+                  "We help dental clinics build professional websites, improve online visibility, and use AI tools to reduce front desk workload and increase patient inquiries.",
+                  "我們協助牙科診所建立專業網站、提升網路能見度，並運用 AI 工具減輕前台工作負擔、增加患者諮詢。"
+                )}
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a
                   href="/proposal"
                   className="cta-solid inline-block text-center px-8 py-4 text-base font-semibold rounded-lg"
                 >
-                  Request a Proposal for My Clinic
+                  {tt("Request a Proposal for My Clinic", "為我的診所申請提案")}
                 </a>
                 <a
                   href="#portfolio"
                   className="inline-block text-center px-8 py-4 text-base font-semibold rounded-lg border border-border hover:border-primary hover:text-primary transition-colors"
                 >
-                  Start Your Project
+                  {tt("Start Your Project", "開始你的專案")}
                 </a>
               </div>
               <p className="mt-6 text-sm" style={{ color: "hsl(220 10% 60%)" }}>
-                Website design, branding, and AI automation support for dental clinics.
+                {tt(
+                  "Website design, branding, and AI automation support for dental clinics.",
+                  "為牙科診所提供網站設計、品牌打造與 AI 自動化支援。"
+                )}
               </p>
             </Reveal>
 
@@ -275,10 +307,13 @@ const Dentist = () => {
           <div className="section-container section-padding">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                The Problem
+                {tt("The Problem", "問題")}
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-3xl">
-                Most Dental Websites Look Fine — But Don't Bring Patients
+                {tt(
+                  "Most Dental Websites Look Fine — But Don't Bring Patients",
+                  "多數牙科網站看起來不錯 — 但帶不來患者"
+                )}
               </h2>
             </Reveal>
 
@@ -305,13 +340,16 @@ const Dentist = () => {
           <div className="section-container section-padding">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                What We Build
+                {tt("What We Build", "我們建構什麼")}
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-2xl">
-                What We Build for Dental Clinics
+                {tt("What We Build for Dental Clinics", "我們為牙科診所建構的內容")}
               </h2>
               <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
-                A clear, conversion-focused website system designed around how patients actually choose a dentist.
+                {tt(
+                  "A clear, conversion-focused website system designed around how patients actually choose a dentist.",
+                  "圍繞患者實際如何選擇牙醫所設計的、清晰且以轉換為核心的網站系統。"
+                )}
               </p>
             </Reveal>
 
@@ -340,13 +378,16 @@ const Dentist = () => {
           <div className="section-container section-padding">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                Examples
+                {tt("Examples", "案例")}
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-2xl">
-                Dental Website Examples
+                {tt("Dental Website Examples", "牙科網站案例")}
               </h2>
               <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
-                Sample dental clinic website concepts — design direction, structure, and conversion approach.
+                {tt(
+                  "Sample dental clinic website concepts — design direction, structure, and conversion approach.",
+                  "牙科診所網站概念樣本 — 設計方向、結構與轉換策略。"
+                )}
               </p>
             </Reveal>
 
@@ -377,7 +418,7 @@ const Dentist = () => {
             </div>
 
             <p className="mt-8 text-xs text-muted-foreground">
-              Mock portfolio examples for presentation purposes.
+              {tt("Mock portfolio examples for presentation purposes.", "示意作品集範例，僅供呈現參考。")}
             </p>
           </div>
         </section>
@@ -388,17 +429,17 @@ const Dentist = () => {
             <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
               <Reveal>
                 <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                  Insights
+                  {tt("Insights", "洞察")}
                 </span>
                 <h2 className="mt-3 text-3xl md:text-4xl font-bold">
-                  Insights for Dental Clinics
+                  {tt("Insights for Dental Clinics", "牙科診所洞察")}
                 </h2>
               </Reveal>
               <Link
                 to="/insights/dentist"
                 className="text-sm font-semibold text-primary hover:underline"
               >
-                View More Dental Insights →
+                {tt("View More Dental Insights →", "查看更多牙科洞察 →")}
               </Link>
             </div>
 
@@ -410,14 +451,14 @@ const Dentist = () => {
                     className="block p-6 md:p-8 border border-border rounded-lg h-full bg-background hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all hover:-translate-y-1"
                   >
                     <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium mb-3">
-                      {formatDate(a.date)}
+                      {formatDate(a.date, lang)}
                     </div>
                     <h3 className="text-lg font-bold mb-3">{a.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {a.excerpt}
                     </p>
                     <span className="mt-5 inline-block text-xs text-primary font-semibold">
-                      Read More →
+                      {tt("Read More →", "閱讀更多 →")}
                     </span>
                   </Link>
                 </Reveal>
@@ -431,26 +472,29 @@ const Dentist = () => {
           <div className="section-container py-20 md:py-28 text-center">
             <Reveal>
               <h2 className="text-3xl md:text-5xl font-bold max-w-3xl mx-auto leading-tight">
-                Ready to Improve Your Dental Clinic Website?
+                {tt("Ready to Improve Your Dental Clinic Website?", "準備好提升你的牙科診所網站了嗎？")}
               </h2>
               <p
                 className="mt-5 max-w-2xl mx-auto text-lg leading-relaxed"
                 style={{ color: "hsl(220 10% 65%)" }}
               >
-                We help dental clinics build better websites, improve online visibility, and prepare for AI-driven search and automation.
+                {tt(
+                  "We help dental clinics build better websites, improve online visibility, and prepare for AI-driven search and automation.",
+                  "我們協助牙科診所建立更好的網站、提升能見度，並為 AI 驅動的搜尋與自動化做好準備。"
+                )}
               </p>
               <Link
                 to="/proposal"
                 className="mt-10 inline-block cta-solid px-10 py-4 text-base font-semibold rounded-lg"
               >
-                Request a Proposal for My Clinic
+                {tt("Request a Proposal for My Clinic", "為我的診所申請提案")}
               </Link>
             </Reveal>
           </div>
         </section>
       </main>
 
-      <DentistFooter />
+      <DentistFooter tt={tt} />
     </div>
   );
 };
