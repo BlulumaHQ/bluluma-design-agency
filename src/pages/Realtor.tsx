@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { getLatestByIndustry } from "@/lib/articles";
+import { LayoutDashboard, Building2, FileText } from "lucide-react";
 import logo from "@/assets/bluluma-logo.svg";
-import { useState } from "react";
+import heroImg from "@/assets/realtor/hero-mockup.jpg";
+import sterlingImg from "@/assets/realtor/sterling-wong.jpg";
+import tiffanyImg from "@/assets/realtor/tiffany-tseng.jpg";
+import ericImg from "@/assets/realtor/eric-kim.jpg";
+import preSaleImg from "@/assets/realtor/pre-sale.jpg";
+import helenImg from "@/assets/projects/helen-lam-real-estate.jpg";
+import luxuryImg from "@/assets/projects/concept-luxury-realtor.jpg";
 
 const Reveal = ({
   children,
@@ -36,6 +44,7 @@ const RealtorHeader = () => {
     { label: "What We Do", to: "#what-we-do" },
     { label: "Listings", to: "#listings" },
     { label: "Portfolio", to: "#portfolio" },
+    { label: "Insights", to: "#insights" },
     { label: "Pricing", to: "#pricing" },
     { label: "Contact", to: "#cta" },
   ];
@@ -49,19 +58,19 @@ const RealtorHeader = () => {
           </span>
         </a>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-7">
           {links.map((l) => (
             <a
               key={l.label}
               href={l.to}
-              className="text-[15px] font-semibold text-foreground hover:text-primary transition-colors"
+              className="text-[14px] font-semibold text-foreground hover:text-primary transition-colors"
             >
               {l.label}
             </a>
           ))}
           <a
             href="#cta"
-            className="cta-solid px-6 py-2.5 text-sm font-semibold rounded-lg"
+            className="cta-solid px-5 py-2.5 text-sm font-semibold rounded-lg"
           >
             Get My 2 Free Previews
           </a>
@@ -133,31 +142,59 @@ const Realtor = () => {
 
   const services = [
     {
+      icon: LayoutDashboard,
       title: "Conversion Website Design",
-      desc: "Strategic structure, clear messaging, and a layout designed to turn visitors into qualified buyer and seller leads.",
+      desc: "A modern website structure designed to guide visitors toward booking, inquiries, and property interest.",
     },
     {
-      title: "Feature Listings System",
-      desc: "Curated property pages with strong headlines, lifestyle photography, and clear CTAs — built to convert far better than raw MLS feeds.",
+      icon: Building2,
+      title: "Feature Listing Pages",
+      desc: "Highlight your best properties with custom-designed listing pages, stronger descriptions, image galleries, and clear calls-to-action.",
       highlight: true,
     },
     {
-      title: "Listings Integration",
-      desc: "Optional MLS / IDX integration alongside your feature listings, so you keep full coverage without the standardized look.",
+      icon: FileText,
+      title: "Listing Content Support",
+      desc: "We can help manually manage and update featured listings on your website, so your best properties stay professionally presented.",
     },
   ];
 
-  const portfolio = Array.from({ length: 6 }).map((_, i) => ({
-    name: `Realtor Project ${i + 1}`,
-    result: [
-      "+38% qualified inquiries in 60 days",
-      "+52% time on listing pages",
-      "2.4× contact form submissions",
-      "+44% mobile conversion rate",
-      "+61% return visitor rate",
-      "3× featured-listing engagement",
-    ][i],
-  }));
+  const portfolio = [
+    {
+      name: "Sterling Wong",
+      desc: "Personal real estate branding with a premium, trust-focused website presence.",
+      image: sterlingImg,
+      url: "https://sterling-wong-concept-a.lovable.app/",
+    },
+    {
+      name: "Tiffany Tseng",
+      desc: "Clean Realtor website structure designed for stronger positioning and lead clarity.",
+      image: tiffanyImg,
+      url: "https://tiffany-tseng-concept-a.lovable.app/",
+    },
+    {
+      name: "Helen Lam",
+      desc: "Modern Realtor presentation with improved service flow and mobile-first layout.",
+      image: helenImg,
+      url: "https://helenlam-concept-a.lovable.app/",
+    },
+    {
+      name: "Eric Kim Realty",
+      desc: "Real estate website concept focused on stronger branding and clearer buyer/seller actions.",
+      image: ericImg,
+      url: "https://eric-kim-realty-concept-a.lovable.app/",
+    },
+    {
+      name: "Luxury Realtor Website",
+      desc: "Luxury-focused layout for high-end property presentation and personal branding.",
+      image: luxuryImg,
+    },
+    {
+      name: "Pre-Sale Project Website",
+      desc: "Project-focused real estate website structure for development and pre-sale marketing.",
+      image: preSaleImg,
+    },
+  ];
 
   const steps = [
     { n: "01", title: "Submit", desc: "Tell us about your business and current website." },
@@ -168,33 +205,49 @@ const Realtor = () => {
 
   const pricing = [
     {
-      name: "Version A — Launch Ready",
-      price: "$2,400",
-      desc: "A clean, conversion-focused Realtor website ready to launch fast.",
+      name: "Basic Realtor Website",
+      price: "$499",
+      desc: "A clean, mobile-friendly Realtor website ready to launch fast.",
       features: [
-        "Up to 6 pages",
-        "Conversion-focused structure",
-        "Mobile-first design",
-        "Basic feature listing template",
-        "Contact + lead capture",
-        "Launch in ~2 weeks",
+        "Up to 5 pages",
+        "Mobile-friendly design",
+        "Contact form",
+        "Basic SEO structure",
+        "Featured listing section",
+        "Free hosting available",
       ],
-      cta: "Start with Version A",
+      cta: "Start with Basic",
     },
     {
-      name: "Version B — Sales Focused",
-      price: "$4,800",
-      desc: "A complete sales system built around feature listings and lead conversion.",
+      name: "Business Realtor Website",
+      price: "$875",
+      desc: "A stronger conversion-focused website built for active Realtors.",
       features: [
-        "Everything in Version A",
-        "Feature Listings System",
-        "Optional MLS / IDX integration",
-        "Advanced conversion structure",
-        "Branded listing pages",
-        "Trust + social proof modules",
+        "Up to 8 pages",
+        "Stronger conversion layout",
+        "Feature listing pages",
+        "Lead-focused CTA structure",
+        "Google Map / service area",
+        "Basic SEO setup",
+        "Free hosting available",
       ],
-      cta: "Start with Version B",
+      cta: "Start with Business",
       featured: true,
+    },
+    {
+      name: "Premium Realtor Website",
+      price: "$1,499+",
+      desc: "A fully custom system with advanced layouts and ongoing listing support.",
+      features: [
+        "Up to 12 pages",
+        "Advanced custom layout",
+        "Feature listing system",
+        "Listing content support",
+        "Branding refinement",
+        "SEO-friendly page structure",
+        "Optional MLS / IDX integration as add-on",
+      ],
+      cta: "Start with Premium",
     },
   ];
 
@@ -205,20 +258,18 @@ const Realtor = () => {
       <main className="flex-1">
         {/* HERO (dark) */}
         <section className="section-dark section-border">
-          <div className="section-container py-20 md:py-32">
+          <div className="section-container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
                 For Realtors
               </span>
-              <h1 className="mt-4 text-4xl md:text-6xl font-bold leading-tight max-w-4xl">
-                See Your New Real Estate Website Before You Pay
+              <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                Real Estate Websites Built to Attract More Buyers and Sellers
               </h1>
-              <p className="mt-6 text-lg md:text-xl max-w-2xl leading-relaxed" style={{ color: "hsl(220 10% 70%)" }}>
-                We redesign your website to attract more buyers and sellers —
-                with conversion-focused structure and powerful listing
-                presentation.
+              <p className="mt-6 text-lg leading-relaxed" style={{ color: "hsl(220 10% 70%)" }}>
+                Bluluma creates conversion-focused Realtor websites with stronger branding, better listing presentation, and clearer lead flow.
               </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a
                   href="#cta"
                   className="cta-solid inline-block text-center px-8 py-4 text-base font-semibold rounded-lg"
@@ -231,6 +282,21 @@ const Realtor = () => {
                 >
                   See How It Works
                 </a>
+              </div>
+              <p className="mt-6 text-sm" style={{ color: "hsl(220 10% 60%)" }}>
+                Website design, branding, listing presentation, and ongoing content support for Realtors.
+              </p>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <div className="rounded-xl overflow-hidden border border-border shadow-2xl shadow-primary/10">
+                <img
+                  src={heroImg}
+                  alt="Premium Realtor website displayed on laptop and mobile"
+                  className="w-full h-auto block"
+                  width={1600}
+                  height={1024}
+                />
               </div>
             </Reveal>
           </div>
@@ -249,32 +315,42 @@ const Realtor = () => {
             </Reveal>
 
             <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
-              {services.map((s, i) => (
-                <Reveal key={s.title} delay={i * 80}>
-                  <div
-                    className={`h-full p-8 border rounded-lg transition-all hover:-translate-y-1 ${
-                      s.highlight
-                        ? "border-primary bg-primary/5 shadow-lg shadow-primary/10"
-                        : "border-border bg-background hover:border-primary/40"
-                    }`}
-                  >
-                    {s.highlight && (
-                      <span className="inline-block text-[10px] uppercase tracking-widest font-semibold text-primary mb-3">
-                        Main Focus
-                      </span>
-                    )}
-                    <h3 className="text-xl font-bold mb-3">{s.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-base">
-                      {s.desc}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
+              {services.map((s, i) => {
+                const Icon = s.icon;
+                return (
+                  <Reveal key={s.title} delay={i * 80}>
+                    <div
+                      className={`h-full p-8 border rounded-lg transition-all hover:-translate-y-1 ${
+                        s.highlight
+                          ? "border-primary bg-primary/5 shadow-lg shadow-primary/10"
+                          : "border-border bg-background hover:border-primary/40"
+                      }`}
+                    >
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                        <Icon className="w-6 h-6 text-primary" />
+                      </div>
+                      {s.highlight && (
+                        <span className="inline-block text-[10px] uppercase tracking-widest font-semibold text-primary mb-2">
+                          Main Focus
+                        </span>
+                      )}
+                      <h3 className="text-xl font-bold mb-3">{s.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed text-base">
+                        {s.desc}
+                      </p>
+                    </div>
+                  </Reveal>
+                );
+              })}
             </div>
+
+            <p className="mt-10 text-sm text-muted-foreground max-w-2xl">
+              MLS / IDX integration can be added later as an optional advanced setup.
+            </p>
           </div>
         </section>
 
-        {/* LISTINGS (anchor target, expands the Feature Listings story) */}
+        {/* LISTINGS */}
         <section id="listings" className="section-border bg-background">
           <div className="section-container section-padding grid md:grid-cols-2 gap-12 items-center">
             <Reveal>
@@ -285,10 +361,7 @@ const Realtor = () => {
                 Listings designed to sell, not just to display.
               </h2>
               <p className="mt-5 text-muted-foreground leading-relaxed">
-                Standard MLS pages all look the same. Our Feature Listings
-                System turns each property into a high-conversion landing
-                page — strong headline, curated photography, lifestyle
-                copywriting, and a clear next step for buyers.
+                Standard MLS pages all look the same. Our Feature Listings approach turns each property into a high-conversion landing page — strong headline, curated photography, lifestyle copywriting, and a clear next step for buyers.
               </p>
               <ul className="mt-6 space-y-3 text-muted-foreground">
                 <li>• Strong, headline-driven property pages</li>
@@ -298,15 +371,13 @@ const Realtor = () => {
               </ul>
             </Reveal>
             <Reveal delay={120}>
-              <div className="aspect-[4/5] rounded-lg border border-border bg-gradient-to-br from-primary/10 via-primary/5 to-background p-8 flex items-end">
-                <div>
-                  <div className="text-xs uppercase tracking-widest text-primary font-semibold">
-                    Sample Feature Listing
-                  </div>
-                  <div className="mt-2 text-2xl font-bold">
-                    A modern home, presented like a brand.
-                  </div>
-                </div>
+              <div className="rounded-xl overflow-hidden border border-border shadow-lg">
+                <img
+                  src={luxuryImg}
+                  alt="Sample feature listing page mockup"
+                  className="w-full h-auto block"
+                  loading="lazy"
+                />
               </div>
             </Reveal>
           </div>
@@ -320,33 +391,44 @@ const Realtor = () => {
                 Portfolio
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-2xl">
-                Before, two previews, and the result.
+                Selected Real Estate Projects
               </h2>
+              <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
+                A look at recent and concept Realtor websites — branding, structure, and conversion design.
+              </p>
             </Reveal>
 
             <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {portfolio.map((p, i) => (
                 <Reveal key={p.name} delay={i * 60}>
-                  <div className="border border-border rounded-lg overflow-hidden bg-background hover:border-primary/40 transition-colors">
-                    <div className="grid grid-cols-3 border-b border-border">
-                      {["Before", "Preview A", "Preview B"].map((label) => (
-                        <div
-                          key={label}
-                          className="aspect-square bg-muted flex items-center justify-center border-r last:border-r-0 border-border"
-                        >
-                          <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
-                            {label}
-                          </span>
-                        </div>
-                      ))}
+                  <div className="group border border-border rounded-lg overflow-hidden bg-background hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+                    <div className="aspect-[4/3] bg-muted overflow-hidden">
+                      <img
+                        src={p.image}
+                        alt={`${p.name} real estate website preview`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                        loading="lazy"
+                      />
                     </div>
-                    <div className="p-6">
-                      <div className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">
-                        {p.name}
-                      </div>
-                      <p className="mt-2 text-base font-semibold text-primary">
-                        {p.result}
+                    <div className="p-6 flex flex-col flex-1">
+                      <h3 className="text-lg font-bold">{p.name}</h3>
+                      <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">
+                        {p.desc}
                       </p>
+                      {p.url ? (
+                        <a
+                          href={p.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-5 inline-flex items-center justify-center px-4 py-2.5 text-xs font-semibold rounded-lg border border-border hover:border-primary hover:text-primary transition-colors w-fit"
+                        >
+                          View Project →
+                        </a>
+                      ) : (
+                        <span className="mt-5 inline-flex items-center px-4 py-2.5 text-xs font-semibold rounded-lg border border-dashed border-border text-muted-foreground w-fit">
+                          Concept Sample
+                        </span>
+                      )}
                     </div>
                   </div>
                 </Reveal>
@@ -392,14 +474,14 @@ const Realtor = () => {
                 Pricing
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-2xl">
-                Two clear options. No surprises.
+                Simple, accessible Realtor pricing.
               </h2>
             </Reveal>
-            <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
               {pricing.map((p, i) => (
                 <Reveal key={p.name} delay={i * 100}>
                   <div
-                    className={`p-8 md:p-10 border rounded-lg h-full flex flex-col ${
+                    className={`p-8 border rounded-lg h-full flex flex-col ${
                       p.featured
                         ? "border-primary bg-primary/5 shadow-lg shadow-primary/10"
                         : "border-border bg-background"
@@ -409,10 +491,10 @@ const Realtor = () => {
                       {p.name}
                     </div>
                     <div className="mt-3 text-4xl font-bold">{p.price}</div>
-                    <p className="mt-3 text-muted-foreground leading-relaxed">
+                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                       {p.desc}
                     </p>
-                    <ul className="mt-6 space-y-2.5 text-muted-foreground flex-1">
+                    <ul className="mt-6 space-y-2.5 text-sm text-muted-foreground flex-1">
                       {p.features.map((f) => (
                         <li key={f} className="flex gap-2">
                           <span className="text-primary">•</span>
@@ -438,7 +520,7 @@ const Realtor = () => {
         </section>
 
         {/* INSIGHTS */}
-        <section className="section-border bg-background">
+        <section id="insights" className="section-border bg-background">
           <div className="section-container section-padding">
             <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
               <Reveal>
