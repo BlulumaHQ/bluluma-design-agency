@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { getLatestByIndustry } from "@/lib/articles";
+import { useLang } from "@/lib/i18n";
 import { LayoutDashboard, Building2, FileText } from "lucide-react";
 import logo from "@/assets/bluluma-logo.svg";
 import heroImg from "@/assets/realtor/hero-mockup.jpg";
@@ -29,24 +30,25 @@ const Reveal = ({
   );
 };
 
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-US", {
+const formatDate = (iso: string, lang: "en" | "zh") =>
+  new Date(iso).toLocaleDateString(lang === "zh" ? "zh-TW" : "en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 
 /* ── Local minimal header for /realtor only ── */
-const RealtorHeader = () => {
+const RealtorHeader = ({ tt }: { tt: (en: string, zh: string) => string }) => {
   const [open, setOpen] = useState(false);
+  const { lang, setLang } = useLang();
   const links = [
-    { label: "Home", to: "#top" },
-    { label: "What We Do", to: "#what-we-do" },
-    { label: "Listings", to: "#listings" },
-    { label: "Portfolio", to: "#portfolio" },
-    { label: "Insights", to: "#insights" },
-    { label: "Pricing", to: "#pricing" },
-    { label: "Contact", to: "#cta" },
+    { label: tt("Home", "首頁"), to: "#top" },
+    { label: tt("What We Do", "服務內容"), to: "#what-we-do" },
+    { label: tt("Listings", "房源"), to: "#listings" },
+    { label: tt("Portfolio", "作品集"), to: "#portfolio" },
+    { label: tt("Insights", "洞察"), to: "#insights" },
+    { label: tt("Pricing", "價格"), to: "#pricing" },
+    { label: tt("Contact", "聯絡"), to: "#cta" },
   ];
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
@@ -54,7 +56,7 @@ const RealtorHeader = () => {
         <a href="#top" className="flex-shrink-0 flex items-center gap-3">
           <img src={logo} alt="Bluluma logo" className="h-10 w-auto" />
           <span className="text-sm font-semibold text-muted-foreground hidden sm:inline">
-            for Realtors
+            {tt("for Realtors", "房地產經紀專屬")}
           </span>
         </a>
 
@@ -72,8 +74,12 @@ const RealtorHeader = () => {
             href="/proposal"
             className="cta-solid px-5 py-2.5 text-sm font-semibold rounded-lg"
           >
-            Request a Proposal
+            {tt("Request a Proposal", "申請提案")}
           </a>
+          <div className="flex items-center text-xs font-medium border border-border rounded-md overflow-hidden">
+            <button onClick={() => setLang("en")} className={`px-2.5 py-1.5 transition-colors ${lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>EN</button>
+            <button onClick={() => setLang("zh")} className={`px-2.5 py-1.5 transition-colors ${lang === "zh" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>中文</button>
+          </div>
           <Link
             to="/"
             className="text-xs text-muted-foreground hover:text-primary transition-colors"
@@ -82,15 +88,21 @@ const RealtorHeader = () => {
           </Link>
         </nav>
 
-        <button
-          className="lg:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          <span className={`block w-6 h-px bg-foreground transition-transform ${open ? "rotate-45 translate-y-[3.5px]" : ""}`} />
-          <span className={`block w-6 h-px bg-foreground transition-opacity ${open ? "opacity-0" : ""}`} />
-          <span className={`block w-6 h-px bg-foreground transition-transform ${open ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
-        </button>
+        <div className="lg:hidden flex items-center gap-3">
+          <div className="flex items-center text-xs font-medium border border-border rounded-md overflow-hidden">
+            <button onClick={() => setLang("en")} className={`px-2 py-1 transition-colors ${lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>EN</button>
+            <button onClick={() => setLang("zh")} className={`px-2 py-1 transition-colors ${lang === "zh" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>中文</button>
+          </div>
+          <button
+            className="flex flex-col gap-1.5 p-2"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            <span className={`block w-6 h-px bg-foreground transition-transform ${open ? "rotate-45 translate-y-[3.5px]" : ""}`} />
+            <span className={`block w-6 h-px bg-foreground transition-opacity ${open ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-px bg-foreground transition-transform ${open ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
+          </button>
+        </div>
       </div>
       {open && (
         <nav className="lg:hidden border-t border-border bg-background">
@@ -110,7 +122,7 @@ const RealtorHeader = () => {
               onClick={() => setOpen(false)}
               className="w-full text-center cta-solid px-6 py-3.5 text-base font-semibold rounded-lg"
             >
-              Request a Proposal
+              {tt("Request a Proposal", "申請提案")}
             </a>
             <Link to="/" className="text-xs text-muted-foreground">
               Bluluma →
@@ -122,12 +134,12 @@ const RealtorHeader = () => {
   );
 };
 
-const RealtorFooter = () => (
+const RealtorFooter = ({ tt }: { tt: (en: string, zh: string) => string }) => (
   <footer className="section-dark border-t border-border">
     <div className="section-container py-12 flex flex-col md:flex-row justify-between items-center gap-4 text-sm" style={{ color: "hsl(220 10% 55%)" }}>
-      <span>© 2026 Bluluma. All rights reserved.</span>
+      <span>{tt("© 2026 Bluluma. All rights reserved.", "© 2026 Bluluma. 版權所有。")}</span>
       <span>
-        Web Design by{" "}
+        {tt("Web Design by ", "網站設計：")}
         <Link to="/" className="hover:text-primary transition-colors">
           Bluluma
         </Link>
@@ -138,122 +150,151 @@ const RealtorFooter = () => (
 
 /* ── Page ── */
 const Realtor = () => {
+  const { lang } = useLang();
+  const tt = (en: string, zh: string) => (lang === "zh" ? zh : en);
   const insights = getLatestByIndustry("Realtor", 3);
 
   const services = [
     {
       icon: LayoutDashboard,
-      title: "Conversion Website Design",
-      desc: "A modern website structure designed to guide visitors toward booking, inquiries, and property interest.",
+      title: tt("Conversion Website Design", "高轉換率網站設計"),
+      desc: tt(
+        "A modern website structure designed to guide visitors toward booking, inquiries, and property interest.",
+        "現代化網站架構，引導訪客進行預約、諮詢與房源探索。"
+      ),
     },
     {
       icon: Building2,
-      title: "Feature Listing Pages",
-      desc: "Highlight your best properties with custom-designed listing pages, stronger descriptions, image galleries, and clear calls-to-action.",
+      title: tt("Feature Listing Pages", "精選房源頁面"),
+      desc: tt(
+        "Highlight your best properties with custom-designed listing pages, stronger descriptions, image galleries, and clear calls-to-action.",
+        "以客製化房源頁面突顯你最好的物件，包含更有力的文案、圖庫與清晰的行動引導。"
+      ),
       highlight: true,
     },
     {
       icon: FileText,
-      title: "Listing Content Support",
-      desc: "We can help manually manage and update featured listings on your website, so your best properties stay professionally presented.",
+      title: tt("Listing Content Support", "房源內容維護"),
+      desc: tt(
+        "We can help manually manage and update featured listings on your website, so your best properties stay professionally presented.",
+        "我們可協助手動管理並更新精選房源，確保你的物件持續以專業形象呈現。"
+      ),
     },
   ];
 
   const portfolio = [
     {
       name: "Sterling Wong",
-      desc: "Personal real estate branding with a premium, trust-focused website presence.",
+      desc: tt(
+        "Personal real estate branding with a premium, trust-focused website presence.",
+        "個人房地產品牌，呈現高端、值得信賴的網站形象。"
+      ),
       image: sterlingImg,
       url: "https://sterling-wong-concept-a.lovable.app/",
     },
     {
       name: "Tiffany Tseng",
-      desc: "Clean Realtor website structure designed for stronger positioning and lead clarity.",
+      desc: tt(
+        "Clean Realtor website structure designed for stronger positioning and lead clarity.",
+        "簡潔的房仲網站架構，強化定位與客戶轉換清晰度。"
+      ),
       image: tiffanyImg,
       url: "https://tiffany-tseng-concept-a.lovable.app/",
     },
     {
       name: "Helen Lam",
-      desc: "Modern Realtor presentation with improved service flow and mobile-first layout.",
+      desc: tt(
+        "Modern Realtor presentation with improved service flow and mobile-first layout.",
+        "現代化房仲呈現，優化服務流程與行動裝置優先佈局。"
+      ),
       image: helenImg,
       url: "https://helenlam-concept-a.lovable.app/",
     },
     {
       name: "Eric Kim Realty",
-      desc: "Real estate website concept focused on stronger branding and clearer buyer/seller actions.",
+      desc: tt(
+        "Real estate website concept focused on stronger branding and clearer buyer/seller actions.",
+        "房地產網站概念，聚焦更強的品牌與清晰的買賣方行動引導。"
+      ),
       image: ericImg,
       url: "https://eric-kim-realty-concept-a.lovable.app/",
     },
     {
-      name: "Luxury Realtor Website",
-      desc: "Luxury-focused layout for high-end property presentation and personal branding.",
+      name: tt("Luxury Realtor Website", "豪宅房仲網站"),
+      desc: tt(
+        "Luxury-focused layout for high-end property presentation and personal branding.",
+        "聚焦豪宅的版面，用於高端物件展示與個人品牌經營。"
+      ),
       image: luxuryImg,
     },
     {
-      name: "Pre-Sale Project Website",
-      desc: "Project-focused real estate website structure for development and pre-sale marketing.",
+      name: tt("Pre-Sale Project Website", "預售案網站"),
+      desc: tt(
+        "Project-focused real estate website structure for development and pre-sale marketing.",
+        "以建案為核心的房地產網站結構，適用於開發與預售行銷。"
+      ),
       image: preSaleImg,
     },
   ];
 
   const steps = [
-    { n: "01", title: "Submit", desc: "Tell us about your business and current website." },
-    { n: "02", title: "Proposal & Direction", desc: "We send a tailored proposal with scope, timeline, and recommended direction." },
-    { n: "03", title: "Choose Your Direction", desc: "Pick the version that fits your brand and goals." },
-    { n: "04", title: "Launch", desc: "We finalize, integrate listings, and launch." },
+    { n: "01", title: tt("Submit", "提交需求"), desc: tt("Tell us about your business and current website.", "告訴我們你的業務與目前的網站狀況。") },
+    { n: "02", title: tt("Proposal & Direction", "提案與方向"), desc: tt("We send a tailored proposal with scope, timeline, and recommended direction.", "我們提供量身訂做的提案，包括範疇、時程與建議方向。") },
+    { n: "03", title: tt("Choose Your Direction", "選擇方向"), desc: tt("Pick the version that fits your brand and goals.", "選擇最符合你品牌與目標的方案。") },
+    { n: "04", title: tt("Launch", "上線"), desc: tt("We finalize, integrate listings, and launch.", "我們完成最後修飾、整合房源並正式上線。") },
   ];
 
   const pricing = [
     {
-      name: "Basic Realtor Website",
+      name: tt("Basic Realtor Website", "基礎房仲網站"),
       price: "$499",
-      desc: "A clean, mobile-friendly Realtor website ready to launch fast.",
+      desc: tt("A clean, mobile-friendly Realtor website ready to launch fast.", "簡潔、行動裝置友善的房仲網站，可快速上線。"),
       features: [
-        "Up to 5 pages",
-        "Mobile-friendly design",
-        "Contact form",
-        "Basic SEO structure",
-        "Featured listing section",
-        "Free hosting available",
+        tt("Up to 5 pages", "最多 5 頁"),
+        tt("Mobile-friendly design", "行動裝置友善設計"),
+        tt("Contact form", "聯絡表單"),
+        tt("Basic SEO structure", "基本 SEO 架構"),
+        tt("Featured listing section", "精選房源區塊"),
+        tt("Free hosting available", "提供免費代管選項"),
       ],
-      cta: "Start with Basic",
+      cta: tt("Start with Basic", "選擇基礎方案"),
     },
     {
-      name: "Business Realtor Website",
+      name: tt("Business Realtor Website", "商業房仲網站"),
       price: "$875",
-      desc: "A stronger conversion-focused website built for active Realtors.",
+      desc: tt("A stronger conversion-focused website built for active Realtors.", "為活躍房仲打造、更聚焦轉換的網站。"),
       features: [
-        "Up to 8 pages",
-        "Stronger conversion layout",
-        "Feature listing pages",
-        "Lead-focused CTA structure",
-        "Google Map / service area",
-        "Basic SEO setup",
-        "Free hosting available",
+        tt("Up to 8 pages", "最多 8 頁"),
+        tt("Stronger conversion layout", "更強的轉換版面"),
+        tt("Feature listing pages", "精選房源頁面"),
+        tt("Lead-focused CTA structure", "以客戶轉換為核心的 CTA 結構"),
+        tt("Google Map / service area", "Google 地圖／服務區域"),
+        tt("Basic SEO setup", "基本 SEO 設定"),
+        tt("Free hosting available", "提供免費代管選項"),
       ],
-      cta: "Start with Business",
+      cta: tt("Start with Business", "選擇商業方案"),
       featured: true,
     },
     {
-      name: "Premium Realtor Website",
+      name: tt("Premium Realtor Website", "頂級房仲網站"),
       price: "$1,499+",
-      desc: "A fully custom system with advanced layouts and ongoing listing support.",
+      desc: tt("A fully custom system with advanced layouts and ongoing listing support.", "完全客製化系統，含進階版面與持續性房源維護。"),
       features: [
-        "Up to 12 pages",
-        "Advanced custom layout",
-        "Feature listing system",
-        "Listing content support",
-        "Branding refinement",
-        "SEO-friendly page structure",
-        "Optional MLS / IDX integration as add-on",
+        tt("Up to 12 pages", "最多 12 頁"),
+        tt("Advanced custom layout", "進階客製化版面"),
+        tt("Feature listing system", "精選房源系統"),
+        tt("Listing content support", "房源內容維護"),
+        tt("Branding refinement", "品牌優化"),
+        tt("SEO-friendly page structure", "SEO 友善頁面結構"),
+        tt("Optional MLS / IDX integration as add-on", "可加購 MLS / IDX 整合"),
       ],
-      cta: "Start with Premium",
+      cta: tt("Start with Premium", "選擇頂級方案"),
     },
   ];
 
   return (
     <div id="top" className="flex flex-col min-h-screen">
-      <RealtorHeader />
+      <RealtorHeader tt={tt} />
 
       <main className="flex-1">
         {/* HERO (dark) */}
@@ -261,30 +302,36 @@ const Realtor = () => {
           <div className="section-container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                For Realtors
+                {tt("For Realtors", "房地產經紀專屬")}
               </span>
               <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Real Estate Websites Built to Attract More Buyers and Sellers
+                {tt("Real Estate Websites Built to Attract More Buyers and Sellers", "為房仲打造、吸引更多買賣方的房地產網站")}
               </h1>
               <p className="mt-6 text-lg leading-relaxed" style={{ color: "hsl(220 10% 70%)" }}>
-                Bluluma creates conversion-focused Realtor websites with stronger branding, better listing presentation, and clearer lead flow.
+                {tt(
+                  "Bluluma creates conversion-focused Realtor websites with stronger branding, better listing presentation, and clearer lead flow.",
+                  "Bluluma 為房仲打造以轉換為核心的網站，提供更強的品牌、更佳的房源呈現與更清晰的客戶流程。"
+                )}
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a
                   href="/proposal"
                   className="cta-solid inline-block text-center px-8 py-4 text-base font-semibold rounded-lg"
                 >
-                  Request a Proposal for My Real Estate Business
+                  {tt("Request a Proposal for My Real Estate Business", "為我的房地產業務申請提案")}
                 </a>
                 <a
                   href="/proposal"
                   className="inline-block text-center px-8 py-4 text-base font-semibold rounded-lg border border-border hover:border-primary hover:text-primary transition-colors"
                 >
-                  Start Your Project
+                  {tt("Start Your Project", "開始你的專案")}
                 </a>
               </div>
               <p className="mt-6 text-sm" style={{ color: "hsl(220 10% 60%)" }}>
-                Website design, branding, listing presentation, and ongoing content support for Realtors.
+                {tt(
+                  "Website design, branding, listing presentation, and ongoing content support for Realtors.",
+                  "為房仲提供網站設計、品牌打造、房源呈現與持續內容支援。"
+                )}
               </p>
             </Reveal>
 
@@ -307,10 +354,10 @@ const Realtor = () => {
           <div className="section-container section-padding">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                What We Do
+                {tt("What We Do", "服務內容")}
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-2xl">
-                Three pieces. One conversion system.
+                {tt("Three pieces. One conversion system.", "三大模組。一套轉換系統。")}
               </h2>
             </Reveal>
 
@@ -331,7 +378,7 @@ const Realtor = () => {
                       </div>
                       {s.highlight && (
                         <span className="inline-block text-[10px] uppercase tracking-widest font-semibold text-primary mb-2">
-                          Main Focus
+                          {tt("Main Focus", "主要重點")}
                         </span>
                       )}
                       <h3 className="text-xl font-bold mb-3">{s.title}</h3>
@@ -345,7 +392,10 @@ const Realtor = () => {
             </div>
 
             <p className="mt-10 text-sm text-muted-foreground max-w-2xl">
-              MLS / IDX integration can be added later as an optional advanced setup.
+              {tt(
+                "MLS / IDX integration can be added later as an optional advanced setup.",
+                "MLS / IDX 整合可作為進階加購項目之後再加入。"
+              )}
             </p>
           </div>
         </section>
@@ -355,19 +405,22 @@ const Realtor = () => {
           <div className="section-container section-padding grid md:grid-cols-2 gap-12 items-center">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                Feature Listings
+                {tt("Feature Listings", "精選房源")}
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold">
-                Listings designed to sell, not just to display.
+                {tt("Listings designed to sell, not just to display.", "為成交而設計的房源，不只是展示。")}
               </h2>
               <p className="mt-5 text-muted-foreground leading-relaxed">
-                Standard MLS pages all look the same. Our Feature Listings approach turns each property into a high-conversion landing page — strong headline, curated photography, lifestyle copywriting, and a clear next step for buyers.
+                {tt(
+                  "Standard MLS pages all look the same. Our Feature Listings approach turns each property into a high-conversion landing page — strong headline, curated photography, lifestyle copywriting, and a clear next step for buyers.",
+                  "標準 MLS 頁面千篇一律。我們的精選房源做法將每個物件變成高轉換的著陸頁 — 強而有力的標題、精選攝影、生活風格文案，並為買方提供清晰的下一步。"
+                )}
               </p>
               <ul className="mt-6 space-y-3 text-muted-foreground">
-                <li>• Strong, headline-driven property pages</li>
-                <li>• Curated photo galleries</li>
-                <li>• Lifestyle-focused descriptions</li>
-                <li>• Clear, single call-to-action per listing</li>
+                <li>• {tt("Strong, headline-driven property pages", "以強標題為核心的房源頁")}</li>
+                <li>• {tt("Curated photo galleries", "精選攝影圖庫")}</li>
+                <li>• {tt("Lifestyle-focused descriptions", "聚焦生活風格的描述")}</li>
+                <li>• {tt("Clear, single call-to-action per listing", "每個房源一個清晰的 CTA")}</li>
               </ul>
             </Reveal>
             <Reveal delay={120}>
@@ -388,13 +441,16 @@ const Realtor = () => {
           <div className="section-container section-padding">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                Portfolio
+                {tt("Portfolio", "作品集")}
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-2xl">
-                Selected Real Estate Projects
+                {tt("Selected Real Estate Projects", "精選房地產作品")}
               </h2>
               <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
-                A look at recent and concept Realtor websites — branding, structure, and conversion design.
+                {tt(
+                  "A look at recent and concept Realtor websites — branding, structure, and conversion design.",
+                  "近期與概念性的房仲網站 — 品牌、架構與轉換設計。"
+                )}
               </p>
             </Reveal>
 
@@ -422,11 +478,11 @@ const Realtor = () => {
                           rel="noopener noreferrer"
                           className="mt-5 inline-flex items-center justify-center px-4 py-2.5 text-xs font-semibold rounded-lg border border-border hover:border-primary hover:text-primary transition-colors w-fit"
                         >
-                          View Project →
+                          {tt("View Project →", "查看專案 →")}
                         </a>
                       ) : (
                         <span className="mt-5 inline-flex items-center px-4 py-2.5 text-xs font-semibold rounded-lg border border-dashed border-border text-muted-foreground w-fit">
-                          Concept Sample
+                          {tt("Concept Sample", "概念樣本")}
                         </span>
                       )}
                     </div>
@@ -442,10 +498,10 @@ const Realtor = () => {
           <div className="section-container section-padding">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                Process
+                {tt("Process", "流程")}
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-2xl">
-                Submit → Proposal → Build → Launch.
+                {tt("Submit → Proposal → Build → Launch.", "提交 → 提案 → 製作 → 上線。")}
               </h2>
             </Reveal>
             <div className="mt-14 grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -471,10 +527,10 @@ const Realtor = () => {
           <div className="section-container section-padding">
             <Reveal>
               <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                Pricing
+                {tt("Pricing", "價格")}
               </span>
               <h2 className="mt-3 text-3xl md:text-4xl font-bold max-w-2xl">
-                Simple, accessible Realtor pricing.
+                {tt("Simple, accessible Realtor pricing.", "簡單、平易近人的房仲方案價格。")}
               </h2>
             </Reveal>
             <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -525,17 +581,17 @@ const Realtor = () => {
             <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
               <Reveal>
                 <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                  Insights
+                  {tt("Insights", "洞察")}
                 </span>
                 <h2 className="mt-3 text-3xl md:text-4xl font-bold">
-                  Insights for Realtors
+                  {tt("Insights for Realtors", "房仲洞察")}
                 </h2>
               </Reveal>
               <Link
                 to="/insights/realtor"
                 className="text-sm font-semibold text-primary hover:underline"
               >
-                View More Realtor Insights →
+                {tt("View More Realtor Insights →", "查看更多房仲洞察 →")}
               </Link>
             </div>
 
@@ -547,14 +603,14 @@ const Realtor = () => {
                     className="block p-6 md:p-8 border border-border rounded-lg h-full bg-background hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all hover:-translate-y-1"
                   >
                     <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium mb-3">
-                      {formatDate(a.date)}
+                      {formatDate(a.date, lang)}
                     </div>
                     <h3 className="text-lg font-bold mb-3">{a.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {a.excerpt}
                     </p>
                     <span className="mt-5 inline-block text-xs text-primary font-semibold">
-                      Read More →
+                      {tt("Read More →", "閱讀更多 →")}
                     </span>
                   </Link>
                 </Reveal>
@@ -568,26 +624,26 @@ const Realtor = () => {
           <div className="section-container py-20 md:py-28 text-center">
             <Reveal>
               <h2 className="text-3xl md:text-5xl font-bold max-w-3xl mx-auto leading-tight">
-                Ready to grow your real estate business?
+                {tt("Ready to grow your real estate business?", "準備好拓展你的房地產業務了嗎？")}
               </h2>
               <p
                 className="mt-5 max-w-xl mx-auto text-lg leading-relaxed"
                 style={{ color: "hsl(220 10% 65%)" }}
               >
-                Request a tailored proposal for your real estate website and brand.
+                {tt("Request a tailored proposal for your real estate website and brand.", "為你的房地產網站與品牌申請一份量身訂做的提案。")}
               </p>
               <Link
                 to="/proposal"
                 className="mt-10 inline-block cta-solid px-10 py-4 text-base font-semibold rounded-lg"
               >
-                Request a Proposal for My Real Estate Business
+                {tt("Request a Proposal for My Real Estate Business", "為我的房地產業務申請提案")}
               </Link>
             </Reveal>
           </div>
         </section>
       </main>
 
-      <RealtorFooter />
+      <RealtorFooter tt={tt} />
     </div>
   );
 };
