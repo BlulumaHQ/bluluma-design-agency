@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useMemo } from "react";
 import {
   articles,
@@ -34,18 +34,15 @@ const formatDate = (iso: string) =>
     day: "numeric",
   });
 
-const industryFromParam = (param?: string): Industry | null => {
-  if (!param) return null;
-  const map: Record<string, Industry> = {
-    realtor: "Realtor",
-    dentist: "Dentist",
-  };
-  return map[param.toLowerCase()] ?? null;
+const industryFromPath = (pathname: string): Industry | null => {
+  if (pathname.endsWith("/insights/realtor")) return "Realtor";
+  if (pathname.endsWith("/insights/dentist")) return "Dentist";
+  return null;
 };
 
 const Insights = () => {
-  const { industry: industryParam } = useParams();
-  const lockedIndustry = industryFromParam(industryParam);
+  const { pathname } = useLocation();
+  const lockedIndustry = industryFromPath(pathname);
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<string | null>(null);
