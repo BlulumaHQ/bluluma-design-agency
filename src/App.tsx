@@ -68,9 +68,7 @@ const App = () => (
               <Route path="/thank-you" element={<ThankYou />} />
             </Route>
             <Route path="/realtor" element={<Realtor />} />
-            <Route element={<Layout />}>
-              <Route path="/dentist" element={<Dentist />} />
-            </Route>
+            <Route path="/dentist" element={<Dentist />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
