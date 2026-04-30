@@ -21,6 +21,7 @@ const translations: Record<string, Record<Lang, string>> = {
   // Nav
   "nav.home": { en: "Home", zh: "首頁" },
   "nav.work": { en: "Work", zh: "作品" },
+  "nav.portfolio": { en: "Portfolio", zh: "作品集" },
   "nav.case-studies": { en: "Case Studies", zh: "案例研究" },
   "nav.industries": { en: "Industries", zh: "產業" },
   "nav.solutions": { en: "Solutions", zh: "解決方案" },
