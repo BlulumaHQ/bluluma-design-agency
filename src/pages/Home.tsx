@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect, useCallback, useMemo, FormEvent } from "react";
-import ProjectCard from "@/components/ProjectCard";
+import { useState, useEffect, useCallback, FormEvent } from "react";
 import { projects } from "@/lib/projects";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useLang } from "@/lib/i18n";
@@ -16,6 +15,9 @@ import sonykunDesign from "@/assets/projects/sonykun-design.jpg";
 import kchenConstruction from "@/assets/projects/kchen-construction.jpg";
 import helenLam from "@/assets/projects/helen-lam-real-estate.jpg";
 import calinClub from "@/assets/projects/calin-club.jpg";
+import conceptLuxury from "@/assets/projects/concept-luxury-realtor.jpg";
+import conceptPersonal from "@/assets/projects/concept-personal-brand-realtor.jpg";
+import conceptMobile from "@/assets/projects/concept-mobile-listings.jpg";
 import { Target, Zap, Gem, AlertTriangle, CheckCircle2, ArrowRight, X, Check } from "lucide-react";
 
 const projectImages: Record<string, string> = {
@@ -142,10 +144,59 @@ const TestimonialsCarousel = () => {
 const Home = () => {
   const { t } = useLang();
 
-  const randomProjects = useMemo(() => {
-    const shuffled = [...projects].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 4);
-  }, []);
+  type RealEstateTile = {
+    key: string;
+    name: string;
+    result: string;
+    image: string;
+    href?: string;
+    isConcept?: boolean;
+  };
+
+  const realEstateProjects: RealEstateTile[] = [
+    {
+      key: "live-at-headwater",
+      name: "Live at Headwater",
+      result: "Luxury-focused redesign to attract high-end buyers",
+      image: liveAtHeadwater,
+      href: "https://liveatheadwater.ca",
+    },
+    {
+      key: "btn-real-estate",
+      name: "BTN Real Estate",
+      result: "Improved lead flow with clearer call-to-action",
+      image: btnRealEstate,
+      href: "https://btn.bluluma.com",
+    },
+    {
+      key: "helen-lam",
+      name: "Helen Lam Real Estate",
+      result: "MLS IDX integration for easier property browsing",
+      image: helenLam,
+      href: "https://helenlam.ca",
+    },
+    {
+      key: "concept-luxury",
+      name: "Luxury Estate Concept",
+      result: "Premium aesthetic positioning for luxury listings",
+      image: conceptLuxury,
+      isConcept: true,
+    },
+    {
+      key: "concept-personal",
+      name: "Realtor Personal Brand Concept",
+      result: "Stronger personal branding for competitive markets",
+      image: conceptPersonal,
+      isConcept: true,
+    },
+    {
+      key: "concept-mobile",
+      name: "Mobile Listings Concept",
+      result: "Optimized mobile layout for on-the-go buyers",
+      image: conceptMobile,
+      isConcept: true,
+    },
+  ];
 
   const services = [
     { icon: Target, titleKey: "home.svc1.title", descKey: "home.svc1.desc" },
@@ -300,23 +351,45 @@ const Home = () => {
         <div className="section-container section-padding">
           <RevealSection>
             <div className="flex items-baseline justify-between mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold">{t("home.work.title")}</h2>
+              <h2 className="text-3xl md:text-5xl font-bold">Selected Real Estate Projects</h2>
               <span className="text-xs text-muted-foreground tracking-wide uppercase hidden md:block">{t("home.work.label")}</span>
             </div>
           </RevealSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {randomProjects.map((project, i) => (
-              <RevealSection key={project.slug} delay={i * 100} className="h-full">
-                <div className="relative">
-                  <ProjectCard project={project} imageImport={projectImages[project.slug]} mode="live" />
-                  {projectResults[project.slug] && (
-                    <div className="absolute top-4 left-4 z-10 cta-solid px-3 py-1.5 text-xs font-bold rounded">
-                      {projectResults[project.slug]}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {realEstateProjects.map((tile, i) => {
+              const Wrapper: React.ElementType = tile.href ? "a" : "div";
+              const wrapperProps = tile.href
+                ? { href: tile.href, target: "_blank", rel: "noopener noreferrer" }
+                : {};
+              return (
+                <RevealSection key={tile.key} delay={i * 80} className="h-full">
+                  <Wrapper
+                    {...wrapperProps}
+                    className="group block h-full border border-border bg-background rounded-lg overflow-hidden transition-all duration-300 hover:border-primary/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                      <img
+                        src={tile.image}
+                        alt={`${tile.name} — real estate website project by Bluluma`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                        loading="lazy"
+                        width={1280}
+                        height={960}
+                      />
+                      {tile.isConcept && (
+                        <span className="absolute top-4 left-4 z-10 bg-background/95 backdrop-blur-sm border border-border text-foreground text-[11px] font-semibold tracking-wide uppercase rounded px-2.5 py-1">
+                          Sample Concept
+                        </span>
+                      )}
                     </div>
-                  )}
-                </div>
-              </RevealSection>
-            ))}
+                    <div className="p-7">
+                      <h3 className="text-xl font-semibold mb-2">{tile.name}</h3>
+                      <p className="text-base text-muted-foreground leading-relaxed">{tile.result}</p>
+                    </div>
+                  </Wrapper>
+                </RevealSection>
+              );
+            })}
           </div>
           <RevealSection delay={400}>
             <div className="mt-14 text-center">
