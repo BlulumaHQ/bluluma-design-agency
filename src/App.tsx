@@ -22,6 +22,7 @@ import Contact from "./pages/Contact";
 import ThankYou from "./pages/ThankYou";
 import NotFound from "./pages/NotFound";
 import Realtor from "./pages/Realtor";
+import Dentist from "./pages/Dentist";
 import PageLoader from "./components/PageLoader";
 
 const ScrollToTop = () => {
@@ -67,6 +68,9 @@ const App = () => (
               <Route path="/thank-you" element={<ThankYou />} />
             </Route>
             <Route path="/realtor" element={<Realtor />} />
+            <Route element={<Layout />}>
+              <Route path="/dentist" element={<Dentist />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
